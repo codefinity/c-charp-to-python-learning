@@ -10,6 +10,8 @@ CONCEPTS_ROOT = Path("src/csharp_to_python_learning/concepts")
 START_MARKER = "<!-- ADVANCED_WALKTHROUGH_START -->"
 END_MARKER = "<!-- ADVANCED_WALKTHROUGH_END -->"
 TOC_ENTRY = "- [Advanced Walkthrough for C# Developers](#advanced-walkthrough-for-c-developers)"
+ADVANCED_TOC_START = "<!-- ADVANCED_WALKTHROUGH_TOPICS_START -->"
+ADVANCED_TOC_END = "<!-- ADVANCED_WALKTHROUGH_TOPICS_END -->"
 
 
 def topic_number(path: Path) -> int:
@@ -56,7 +58,7 @@ def extract_function_code(source_text: str, module: ast.Module, function_name: s
     return "pass"
 
 
-def concept_block(path: Path) -> str:
+def concept_block(path: Path) -> tuple[str, int, str]:
     source_text = path.read_text(encoding="utf-8")
     module = ast.parse(source_text)
     docstring_text = ast.get_docstring(module, clean=False) or ""
@@ -66,7 +68,7 @@ def concept_block(path: Path) -> str:
     rel = path.as_posix()
     number = topic_number(path)
 
-    return (
+    block = (
         f"### {number}. {title}\n"
         f"Source: [{rel}]({rel})\n\n"
         "**What C# developers usually expect**\n"
@@ -92,9 +94,10 @@ def concept_block(path: Path) -> str:
         "**Expected output**\n"
         f"{sections.get('Expected output', 'See source file docstring.')}\n"
     )
+    return block, number, title
 
 
-def build_section() -> str:
+def discover_concept_files() -> list[Path]:
     discovered = sorted(CONCEPTS_ROOT.rglob("topic_*.py"))
     # Prefer a single source file per topic number in the walkthrough.
     # If duplicates exist (for example a legacy renamed file), pick the longest filename
@@ -106,14 +109,20 @@ def build_section() -> str:
         if current is None or len(path.name) > len(current.name):
             selected_by_topic[number] = path
 
-    concept_files = sorted(selected_by_topic.values(), key=topic_number)
-    blocks = [concept_block(path) for path in concept_files]
+    return sorted(selected_by_topic.values(), key=topic_number)
+
+
+def build_section(concept_files: list[Path]) -> tuple[str, list[tuple[int, str]]]:
+    entries = [concept_block(path) for path in concept_files]
+    blocks = [entry[0] for entry in entries]
+    topics = [(entry[1], entry[2]) for entry in entries]
     intro = (
         "## Advanced Walkthrough for C# Developers\n"
         "This section pulls advanced examples directly from each concept file and explains how to map them from familiar C#/.NET patterns to Python production practices.\n"
         "Use this as the deep-dive track after you run each concept script once.\n\n"
     )
-    return f"{START_MARKER}\n{intro}{'\n\n'.join(blocks)}\n{END_MARKER}"
+    walkthrough = f"{START_MARKER}\n{intro}{'\n\n'.join(blocks)}\n{END_MARKER}"
+    return walkthrough, topics
 
 
 def insert_or_replace_walkthrough(readme: str, walkthrough: str) -> str:
@@ -131,21 +140,48 @@ def insert_or_replace_walkthrough(readme: str, walkthrough: str) -> str:
     return readme + "\n\n" + walkthrough + "\n"
 
 
-def ensure_toc_entry(readme: str) -> str:
-    if TOC_ENTRY in readme:
-        return readme
+def slugify_heading(heading: str) -> str:
+    slug = heading.strip().lower()
+    slug = slug.replace("`", "")
+    slug = re.sub(r"[^\w\s-]", "", slug)
+    slug = re.sub(r"\s+", "-", slug)
+    slug = re.sub(r"-{2,}", "-", slug)
+    return slug.strip("-")
 
-    anchor = "- [Tutorial Concepts](#tutorial-concepts)\n"
-    if anchor in readme:
-        return readme.replace(anchor, anchor + TOC_ENTRY + "\n", 1)
 
-    return readme
+def build_advanced_toc_block(topics: list[tuple[int, str]]) -> str:
+    lines = [ADVANCED_TOC_START]
+    for number, title in topics:
+        heading = f"{number}. {title}"
+        lines.append(f"  - [Advanced {number}. {title}](#{slugify_heading(heading)})")
+    lines.append(ADVANCED_TOC_END)
+    return "\n".join(lines)
+
+
+def ensure_toc_entries(readme: str, topics: list[tuple[int, str]]) -> str:
+    if TOC_ENTRY not in readme:
+        anchor = "- [Tutorial Concepts](#tutorial-concepts)\n"
+        if anchor in readme:
+            readme = readme.replace(anchor, anchor + TOC_ENTRY + "\n", 1)
+        else:
+            return readme
+
+    toc_block = build_advanced_toc_block(topics)
+    if ADVANCED_TOC_START in readme and ADVANCED_TOC_END in readme:
+        pattern = re.compile(
+            re.escape(ADVANCED_TOC_START) + r".*?" + re.escape(ADVANCED_TOC_END),
+            flags=re.DOTALL,
+        )
+        return pattern.sub(lambda _match: toc_block, readme)
+
+    return readme.replace(TOC_ENTRY, TOC_ENTRY + "\n" + toc_block, 1)
 
 
 def main() -> None:
     readme = README_PATH.read_text(encoding="utf-8")
-    readme = ensure_toc_entry(readme)
-    walkthrough = build_section()
+    concept_files = discover_concept_files()
+    walkthrough, topics = build_section(concept_files)
+    readme = ensure_toc_entries(readme, topics)
     readme = insert_or_replace_walkthrough(readme, walkthrough)
     README_PATH.write_text(readme.rstrip() + "\n", encoding="utf-8")
 
