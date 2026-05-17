@@ -5,9 +5,29 @@
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+for (var n = 0; n < 3; n++)
+{
+    if (n == 1) continue;
+    Console.WriteLine($"value {n}");
+}
+```
+
+Advanced equivalent:
+```csharp
+var target = 7;
+var found = false;
+foreach (var n in new[] { 1, 3, 5 })
+{
+    if (n == target)
+    {
+        Console.WriteLine("found");
+        found = true;
+        break;
+    }
+}
+if (!found) Console.WriteLine("not found");
 ```
 
 ## Python equivalent

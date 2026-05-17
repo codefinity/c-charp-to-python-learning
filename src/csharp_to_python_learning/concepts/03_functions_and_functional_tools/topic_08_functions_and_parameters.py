@@ -1,5 +1,5 @@
 """
-# 8. Functions
+# 8. Functions and Parameters
 
 ## What C# developers usually expect
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
@@ -48,11 +48,11 @@ print(pipeline(5, lambda x: x + 1, lambda x: x * 3))
 Functions are first-class objects in Python, so you can pass and return them directly. In practice, combine this with logging, tests, and type hints so the flexibility does not turn into ambiguity. Prefer small functions, clear data boundaries, and explicit contracts where behavior matters.
 
 ## Common mistakes for C# developers
-1. Assuming C# defaults apply directly in `Functions` without checking Python runtime behavior.
+1. Assuming C# defaults apply directly in `Functions and Parameters` without checking Python runtime behavior.
 2. Skipping tests because dynamic code feels simpler at first; regressions grow quickly without guardrails.
 
 ## Exercises
-1. Rewrite one recent C# snippet in Python using this concept: `Functions`.
+1. Rewrite one recent C# snippet in Python using this concept: `Functions and Parameters`.
 2. Add input validation, type hints, and one `pytest` test for the rewritten snippet.
 
 ## Expected output
@@ -81,7 +81,7 @@ def advanced_python_example() -> None:
 
 
 def main() -> None:
-    print("=== 8. Functions ===")
+    print("=== 8. Functions and Parameters ===")
     print("-- Simple Python example --")
     simple_python_example()
     print("-- Advanced Python example --")

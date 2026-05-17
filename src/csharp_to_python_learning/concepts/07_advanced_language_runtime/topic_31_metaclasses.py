@@ -5,9 +5,25 @@
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+class Service
+{
+    public static string Version => "1.0";
+}
+Console.WriteLine(Service.Version);
+```
+
+Advanced equivalent:
+```csharp
+abstract class BasePlugin
+{
+    public static readonly Dictionary<string, Type> Registry = new();
+    protected static void Register<T>() where T : BasePlugin => Registry[typeof(T).Name] = typeof(T);
+}
+class CsvPlugin : BasePlugin { static CsvPlugin() => Register<CsvPlugin>(); }
+_ = typeof(CsvPlugin); // force static ctor
+Console.WriteLine($"[{string.Join(", ", BasePlugin.Registry.Keys.OrderBy(x => x))}]");
 ```
 
 ## Python equivalent

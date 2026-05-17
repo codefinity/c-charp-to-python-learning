@@ -90,7 +90,18 @@ def concept_block(path: Path) -> str:
 
 
 def build_section() -> str:
-    concept_files = sorted(CONCEPTS_ROOT.rglob("topic_*.py"), key=topic_number)
+    discovered = sorted(CONCEPTS_ROOT.rglob("topic_*.py"))
+    # Prefer a single source file per topic number in the walkthrough.
+    # If duplicates exist (for example a legacy renamed file), pick the longest filename
+    # which tends to keep the newer, more descriptive slug.
+    selected_by_topic: dict[int, Path] = {}
+    for path in discovered:
+        number = topic_number(path)
+        current = selected_by_topic.get(number)
+        if current is None or len(path.name) > len(current.name):
+            selected_by_topic[number] = path
+
+    concept_files = sorted(selected_by_topic.values(), key=topic_number)
     blocks = [concept_block(path) for path in concept_files]
     intro = (
         "## Advanced Walkthrough for C# Developers\n"

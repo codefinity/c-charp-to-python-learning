@@ -5,8 +5,25 @@
 C# developers usually expect compile-time generic metadata and fluent APIs with strong type flow.
 
 ## C# example
+Simple equivalent:
 ```csharp
-public TOut Wrap<TIn, TOut>(Func<TIn, TOut> func) => ...
+static Func<TIn, TOut> Traced<TIn, TOut>(Func<TIn, TOut> func)
+{
+    return value => { Console.WriteLine($"traced:{func.Method.Name}"); return func(value); };
+}
+var add = Traced<int, int>(x => x + 3);
+Console.WriteLine(add(2));
+```
+
+Advanced equivalent:
+```csharp
+record Row<T1, T2>(T1 Item1, T2 Item2);
+var row = new Row<int, string>(10, "ok");
+Console.WriteLine($"row:({row.Item1}, {row.Item2})");
+var filters = new List<string>();
+filters.Add("status"); filters.Add("region");
+Console.WriteLine($"filters:[{string.Join(", ", filters)}]");
+Console.WriteLine("safe@443");
 ```
 
 ## Python equivalent

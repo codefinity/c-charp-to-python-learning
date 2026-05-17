@@ -5,9 +5,20 @@
 C# developers usually expect NuGet + csproj tooling and deterministic restore/build steps.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var dependencies = new[] { "httpx>=0.28", "pydantic>=2.8" };
+Console.WriteLine(dependencies.Length);
+```
+
+Advanced equivalent:
+```csharp
+var groups = new Dictionary<string, string[]>
+{
+    ["runtime"] = new[] { "httpx" },
+    ["dev"] = new[] { "pytest", "ruff", "mypy" },
+};
+Console.WriteLine($"[{string.Join(", ", groups["dev"].OrderBy(x => x))}]");
 ```
 
 ## Python equivalent

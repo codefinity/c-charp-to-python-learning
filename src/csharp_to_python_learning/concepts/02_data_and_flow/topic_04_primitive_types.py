@@ -5,9 +5,16 @@
 C# developers usually expect compile-time type contracts and explicit interfaces.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+decimal amount = 19.99m * 3;
+Console.WriteLine($"{amount.GetType().Name} {amount}");
+```
+
+Advanced equivalent:
+```csharp
+var ratio = 1.0 / 3.0 + 1.0 / 6.0;
+Console.WriteLine($"fraction: 1/2 as float: {ratio:F1}");
 ```
 
 ## Python equivalent

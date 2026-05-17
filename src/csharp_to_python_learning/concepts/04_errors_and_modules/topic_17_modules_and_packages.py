@@ -5,9 +5,16 @@
 C# developers usually expect NuGet + csproj tooling and deterministic restore/build steps.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var payload = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>("{\"status\":\"ok\"}")!;
+Console.WriteLine(payload["status"]);
+```
+
+Advanced equivalent:
+```csharp
+var mean = new[] { 2.0, 4.0, 8.0 }.Average();
+Console.WriteLine(mean);
 ```
 
 ## Python equivalent

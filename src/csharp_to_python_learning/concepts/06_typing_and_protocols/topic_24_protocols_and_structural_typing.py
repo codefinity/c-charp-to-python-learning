@@ -5,9 +5,19 @@
 C# developers usually expect compile-time type contracts and explicit interfaces.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+interface IRunner { string Run(); }
+class Job : IRunner { public string Run() => "ok"; }
+string Execute(IRunner target) => target.Run();
+Console.WriteLine(Execute(new Job()));
+```
+
+Advanced equivalent:
+```csharp
+interface ISerializer<in T> { string Serialize(T value); }
+class IntSerializer : ISerializer<int> { public string Serialize(int value) => value.ToString(); }
+Console.WriteLine(new IntSerializer().Serialize(42));
 ```
 
 ## Python equivalent

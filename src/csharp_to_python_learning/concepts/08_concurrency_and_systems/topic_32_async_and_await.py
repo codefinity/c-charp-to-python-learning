@@ -5,12 +5,25 @@
 C# developers usually expect `Task`-centric async flows, explicit cancellation tokens, and thread-pool awareness.
 
 ## C# example
+Simple equivalent:
 ```csharp
-static async Task<string> FetchAsync()
+static async Task<string> Work()
 {
-    await Task.Delay(10);
+    await Task.Yield();
     return "done";
 }
+Console.WriteLine(await Work());
+```
+
+Advanced equivalent:
+```csharp
+static async Task<string> Fetch(string label, int delayMs)
+{
+    await Task.Delay(delayMs);
+    return label;
+}
+var result = await Task.WhenAll(Fetch("a", 10), Fetch("b", 10));
+Console.WriteLine($"[{string.Join(", ", result)}]");
 ```
 
 ## Python equivalent

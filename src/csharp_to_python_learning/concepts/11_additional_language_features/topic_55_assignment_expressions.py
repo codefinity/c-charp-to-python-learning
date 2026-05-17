@@ -5,9 +5,17 @@
 C# developers usually declare a variable before condition checks.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var size = items.Count;
-if (size > 2) { Console.WriteLine(size); }
+var items = new[] { "a", "b", "c", "d" };
+if ((items.Length) is var size && size > 2) Console.WriteLine($"size:{size}");
+```
+
+Advanced equivalent:
+```csharp
+var raw = new[] { " A ", " ", "B", "", " C" };
+var cleaned = raw.Select(item => item.Trim()).Where(item => item.Length > 0).ToList();
+Console.WriteLine($"[{string.Join(", ", cleaned)}]");
 ```
 
 ## Python equivalent

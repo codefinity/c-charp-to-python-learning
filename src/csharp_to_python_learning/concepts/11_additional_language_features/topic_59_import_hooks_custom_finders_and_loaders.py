@@ -5,8 +5,16 @@
 C# developers usually expect assembly loading to be mostly static at startup.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var assembly = Assembly.Load("Plugin");
+var value = 42;
+Console.WriteLine($"hooked value:{value}");
+```
+
+Advanced equivalent:
+```csharp
+var settings = new Dictionary<string, string> { ["mode"] = "safe" };
+Console.WriteLine("hooked settings:{'mode': 'safe'}");
 ```
 
 ## Python equivalent

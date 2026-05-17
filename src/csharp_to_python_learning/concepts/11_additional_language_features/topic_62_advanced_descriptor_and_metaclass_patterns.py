@@ -5,9 +5,27 @@
 C# developers usually expect validation and model registration through attributes, base classes, or DI containers.
 
 ## C# example
+Simple equivalent:
 ```csharp
-[Required]
-public string Name { get; set; } = "";
+class User
+{
+    private string _name = "";
+    public string Name
+    {
+        get => _name;
+        set => _name = string.IsNullOrWhiteSpace(value) ? throw new ArgumentException("name required") : value.Trim();
+    }
+}
+var user = new User { Name = " Nikhil " };
+Console.WriteLine($"user:{user.Name}");
+```
+
+Advanced equivalent:
+```csharp
+var fields = new[] { "name", "owner" };
+var registry = new[] { "Account", "User" };
+Console.WriteLine($"fields:[{string.Join(", ", fields)}]");
+Console.WriteLine($"registry:[{string.Join(", ", registry)}]");
 ```
 
 ## Python equivalent

@@ -5,9 +5,19 @@
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var items = new List<string> { "build", "test", "deploy" };
+var mapping = new Dictionary<string, int> { ["build"] = 1, ["test"] = 2 };
+var unique = new HashSet<string>(items);
+Console.WriteLine($"{items[0]} {mapping["test"]} {unique.Contains("deploy")}");
+```
+
+Advanced equivalent:
+```csharp
+var permissions = new HashSet<string> { "read", "write" };
+var profile = ("nikhil", "senior", permissions);
+Console.WriteLine($"{profile.Item1} [{string.Join(", ", profile.Item3.OrderBy(x => x))}]");
 ```
 
 ## Python equivalent

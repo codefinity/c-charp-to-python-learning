@@ -5,9 +5,16 @@
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var path = Path.Combine("src", "csharp_to_python_learning");
+Console.WriteLine($"src {Path.GetFileName(path)}");
+```
+
+Advanced equivalent:
+```csharp
+var pythonFiles = Directory.EnumerateFiles("src", "*.py", SearchOption.AllDirectories).Any();
+Console.WriteLine(pythonFiles);
 ```
 
 ## Python equivalent

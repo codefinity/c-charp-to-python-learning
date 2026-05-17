@@ -5,9 +5,23 @@
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var payload = new Dictionary<string, object> { ["name"] = "nikhil", ["years"] = 9 };
+var text = System.Text.Json.JsonSerializer.Serialize(payload);
+var roundTrip = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(text)!;
+Console.WriteLine(roundTrip["name"]);
+```
+
+Advanced equivalent:
+```csharp
+var csv = "name,score
+A,90
+".Split('
+', StringSplitOptions.RemoveEmptyEntries);
+var score = csv[1].Split(',')[1];
+var tomlText = "tool = { name = 'uv' }"; // parse with a TOML lib in production
+Console.WriteLine($"{score} uv");
 ```
 
 ## Python equivalent

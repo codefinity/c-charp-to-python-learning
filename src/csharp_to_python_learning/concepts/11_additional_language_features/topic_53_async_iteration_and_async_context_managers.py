@@ -5,10 +5,28 @@
 C# developers usually expect `await foreach` and `await using` for asynchronous streaming and cleanup.
 
 ## C# example
+Simple equivalent:
 ```csharp
-await foreach (var item in ReadAsync())
+static async IAsyncEnumerable<int> StreamNumbers(int limit = 3)
 {
-    Console.WriteLine(item);
+    for (var i = 0; i < limit; i++) { await Task.Yield(); yield return i; }
+}
+await foreach (var value in StreamNumbers()) Console.WriteLine(value);
+```
+
+Advanced equivalent:
+```csharp
+sealed class AsyncScope : IAsyncDisposable
+{
+    private readonly string _name;
+    public AsyncScope(string name) { _name = name; Console.WriteLine($"enter:{name}"); }
+    public ValueTask DisposeAsync() { Console.WriteLine($"exit:{_name}"); return ValueTask.CompletedTask; }
+}
+await using (new AsyncScope("pipeline"))
+{
+    var squares = new List<int>();
+    await foreach (var value in StreamNumbers()) squares.Add(value * value);
+    Console.WriteLine($"squares:[{string.Join(", ", squares)}]");
 }
 ```
 

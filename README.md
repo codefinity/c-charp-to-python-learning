@@ -142,9 +142,24 @@ Source: [src/csharp_to_python_learning/concepts/01_setup_and_runtime/topic_01_py
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var commands = new[] { "uv init", "uv sync", "uv run src/.../topic_01_python_project_setup_with_uv.py" };
+foreach (var command in commands)
+{
+    Console.WriteLine(command);
+}
+```
+
+Advanced equivalent:
+```csharp
+var tooling = new Dictionary<string, string>
+{
+    ["dependencies"] = "uv add requests",
+    ["dev_dependencies"] = "uv add --dev pytest ruff mypy",
+    ["lock_refresh"] = "uv sync --upgrade",
+};
+Console.WriteLine(string.Join(", ", tooling.Select(kv => $"{kv.Key} => {kv.Value}")));
 ```
 
 **Advanced Python example from this file**
@@ -183,9 +198,17 @@ Source: [src/csharp_to_python_learning/concepts/01_setup_and_runtime/topic_02_py
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+Console.WriteLine($"module/assembly: {typeof(Program).Assembly.GetName().Name}");
+Console.WriteLine("main block runs only when executed as a program entry point");
+```
+
+Advanced equivalent:
+```csharp
+var source = "value = 40 + 2";
+var value = 40 + 2; // equivalent compiled expression
+Console.WriteLine($"compiled value: {value}");
 ```
 
 **Advanced Python example from this file**
@@ -221,9 +244,27 @@ Source: [src/csharp_to_python_learning/concepts/02_data_and_flow/topic_03_variab
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var a = new List<int> { 1, 2 };
+var b = a;
+b.Add(3);
+Console.WriteLine($"[{string.Join(", ", a)}] [{string.Join(", ", b)}]");
+```
+
+Advanced equivalent:
+```csharp
+var original = new Dictionary<string, object>
+{
+    ["region"] = "APAC",
+    ["skills"] = new List<string> { "C#", "SQL" },
+};
+var copyForEdit = new Dictionary<string, object>(original)
+{
+    ["skills"] = new List<string> { "C#", "SQL", "Python" },
+};
+Console.WriteLine(original["region"]);
+Console.WriteLine(string.Join(", ", (List<string>)copyForEdit["skills"]));
 ```
 
 **Advanced Python example from this file**
@@ -260,9 +301,16 @@ Source: [src/csharp_to_python_learning/concepts/02_data_and_flow/topic_04_primit
 C# developers usually expect compile-time type contracts and explicit interfaces.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+decimal amount = 19.99m * 3;
+Console.WriteLine($"{amount.GetType().Name} {amount}");
+```
+
+Advanced equivalent:
+```csharp
+var ratio = 1.0 / 3.0 + 1.0 / 6.0;
+Console.WriteLine($"fraction: 1/2 as float: {ratio:F1}");
 ```
 
 **Advanced Python example from this file**
@@ -299,9 +347,19 @@ Source: [src/csharp_to_python_learning/concepts/02_data_and_flow/topic_05_collec
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var items = new List<string> { "build", "test", "deploy" };
+var mapping = new Dictionary<string, int> { ["build"] = 1, ["test"] = 2 };
+var unique = new HashSet<string>(items);
+Console.WriteLine($"{items[0]} {mapping["test"]} {unique.Contains("deploy")}");
+```
+
+Advanced equivalent:
+```csharp
+var permissions = new HashSet<string> { "read", "write" };
+var profile = ("nikhil", "senior", permissions);
+Console.WriteLine($"{profile.Item1} [{string.Join(", ", profile.Item3.OrderBy(x => x))}]");
 ```
 
 **Advanced Python example from this file**
@@ -337,9 +395,23 @@ Source: [src/csharp_to_python_learning/concepts/02_data_and_flow/topic_06_slicin
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var numbers = new List<int> { 10, 20, 30, 40, 50 };
+var head = numbers[0];
+var middle = numbers.Skip(1).Take(numbers.Count - 2).ToList();
+var tail = numbers[^1];
+Console.WriteLine($"{head} [{string.Join(", ", middle)}] {tail}");
+```
+
+Advanced equivalent:
+```csharp
+var window = Enumerable.Range(0, 100)
+    .Select(n => n * n)
+    .Skip(5)
+    .Take(5)
+    .ToList();
+Console.WriteLine($"[{string.Join(", ", window)}]");
 ```
 
 **Advanced Python example from this file**
@@ -377,9 +449,29 @@ Source: [src/csharp_to_python_learning/concepts/02_data_and_flow/topic_07_contro
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+for (var n = 0; n < 3; n++)
+{
+    if (n == 1) continue;
+    Console.WriteLine($"value {n}");
+}
+```
+
+Advanced equivalent:
+```csharp
+var target = 7;
+var found = false;
+foreach (var n in new[] { 1, 3, 5 })
+{
+    if (n == target)
+    {
+        Console.WriteLine("found");
+        found = true;
+        break;
+    }
+}
+if (!found) Console.WriteLine("not found");
 ```
 
 **Advanced Python example from this file**
@@ -412,16 +504,28 @@ Python control flow favors readability with indentation and expressive construct
 - not found
 
 
-### 8. Functions
-Source: [src/csharp_to_python_learning/concepts/03_functions_and_functional_tools/topic_08_functions.py](src/csharp_to_python_learning/concepts/03_functions_and_functional_tools/topic_08_functions.py)
+### 8. Functions and Parameters
+Source: [src/csharp_to_python_learning/concepts/03_functions_and_functional_tools/topic_08_functions_and_parameters.py](src/csharp_to_python_learning/concepts/03_functions_and_functional_tools/topic_08_functions_and_parameters.py)
 
 **What C# developers usually expect**
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+static int Add(int a, int b) => a + b;
+Console.WriteLine(Add(2, 3));
+```
+
+Advanced equivalent:
+```csharp
+static int Pipeline(int value, params Func<int, int>[] steps)
+{
+    var result = value;
+    foreach (var step in steps) result = step(result);
+    return result;
+}
+Console.WriteLine(Pipeline(5, x => x + 1, x => x * 3));
 ```
 
 **Advanced Python example from this file**
@@ -442,11 +546,11 @@ Python approaches this concept with less ceremony: Functions are first-class obj
 Functions are first-class objects in Python, so you can pass and return them directly. In practice, combine this with logging, tests, and type hints so the flexibility does not turn into ambiguity. Prefer small functions, clear data boundaries, and explicit contracts where behavior matters.
 
 **Common mistakes for C# developers**
-1. Assuming C# defaults apply directly in `Functions` without checking Python runtime behavior.
+1. Assuming C# defaults apply directly in `Functions and Parameters` without checking Python runtime behavior.
 2. Skipping tests because dynamic code feels simpler at first; regressions grow quickly without guardrails.
 
 **Exercises**
-1. Rewrite one recent C# snippet in Python using this concept: `Functions`.
+1. Rewrite one recent C# snippet in Python using this concept: `Functions and Parameters`.
 2. Add input validation, type hints, and one `pytest` test for the rewritten snippet.
 
 **Expected output**
@@ -461,9 +565,21 @@ Source: [src/csharp_to_python_learning/concepts/03_functions_and_functional_tool
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+static string Greet(string name, bool excited = false) => $"Hello {name}{(excited ? "!" : ".")}";
+Console.WriteLine(Greet("Nikhil", excited: true));
+```
+
+Advanced equivalent:
+```csharp
+static List<int> AppendItem(int value, List<int>? bucket = null)
+{
+    bucket ??= new List<int>();
+    bucket.Add(value);
+    return bucket;
+}
+Console.WriteLine($"[{string.Join(", ", AppendItem(1))}] [{string.Join(", ", AppendItem(2))}]");
 ```
 
 **Advanced Python example from this file**
@@ -502,9 +618,22 @@ Source: [src/csharp_to_python_learning/concepts/03_functions_and_functional_tool
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var teams = new[] { "platform", "api", "ml" };
+var ordered = teams.OrderBy(t => t.Length);
+Console.WriteLine($"[{string.Join(", ", ordered)}]");
+```
+
+Advanced equivalent:
+```csharp
+var records = new[]
+{
+    new { Name = "A", Score = 92 },
+    new { Name = "B", Score = 81 },
+};
+var top = records.OrderByDescending(r => r.Score).ThenBy(r => r.Name).First();
+Console.WriteLine($"{top.Name} {top.Score}");
 ```
 
 **Advanced Python example from this file**
@@ -540,9 +669,22 @@ Source: [src/csharp_to_python_learning/concepts/03_functions_and_functional_tool
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var count = 0;
+int Inc() => ++count;
+Console.WriteLine($"{Inc()} {Inc()}");
+```
+
+Advanced equivalent:
+```csharp
+var cache = new Dictionary<int, int>();
+int Square(int value)
+{
+    if (!cache.ContainsKey(value)) cache[value] = value * value;
+    return cache[value];
+}
+Console.WriteLine($"{Square(12)} {Square(12)}");
 ```
 
 **Advanced Python example from this file**
@@ -587,9 +729,24 @@ Source: [src/csharp_to_python_learning/concepts/03_functions_and_functional_tool
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-[LogExecution]
-public void Run() { Console.WriteLine("work"); }
+void Run() => Console.WriteLine("work");
+Console.WriteLine("[demo] start");
+Run();
+```
+
+Advanced equivalent:
+```csharp
+static T Timed<T>(Func<T> action)
+{
+    var sw = System.Diagnostics.Stopwatch.StartNew();
+    var result = action();
+    sw.Stop();
+    Console.WriteLine($"elapsed={sw.Elapsed.TotalMilliseconds / 1000.0:F6}");
+    return result;
+}
+Console.WriteLine(Timed(() => Enumerable.Range(0, 10_000).Sum()));
 ```
 
 **Advanced Python example from this file**
@@ -638,9 +795,19 @@ Source: [src/csharp_to_python_learning/concepts/03_functions_and_functional_tool
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var numbers = new[] { 1, 2, 3, 4, 5 };
+var squares = numbers.Where(n => n % 2 == 1).Select(n => n * n);
+Console.WriteLine($"[{string.Join(", ", squares)}]");
+```
+
+Advanced equivalent:
+```csharp
+var matrix = new[] { new[] { 1, 2 }, new[] { 3, 4 }, new[] { 5, 6 } };
+var flat = matrix.SelectMany(row => row).ToList();
+var lookup = flat.ToDictionary(v => v, v => v * v);
+Console.WriteLine($"[{string.Join(", ", flat)}] {lookup[6]}");
 ```
 
 **Advanced Python example from this file**
@@ -677,9 +844,20 @@ Source: [src/csharp_to_python_learning/concepts/03_functions_and_functional_tool
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+static IEnumerable<int> CountUp(int limit)
+{
+    for (var current = 0; current < limit; current++) yield return current;
+}
+Console.WriteLine($"[{string.Join(", ", CountUp(4))}]");
+```
+
+Advanced equivalent:
+```csharp
+IEnumerable<string> Lines() { yield return "alpha"; yield return "beta"; }
+IEnumerable<string> Upper(IEnumerable<string> values) => values.Select(v => v.ToUpperInvariant());
+Console.WriteLine($"[{string.Join(", ", Upper(Lines()))}]");
 ```
 
 **Advanced Python example from this file**
@@ -721,9 +899,25 @@ Source: [src/csharp_to_python_learning/concepts/03_functions_and_functional_tool
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+sealed class LabelledScope : IDisposable
+{
+    private readonly string _name;
+    public LabelledScope(string name) { _name = name; Console.WriteLine($"enter {name}"); }
+    public void Dispose() => Console.WriteLine($"exit {_name}");
+}
+using (new LabelledScope("demo")) Console.WriteLine("inside");
+```
+
+Advanced equivalent:
+```csharp
+var temp = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+Directory.CreateDirectory(temp);
+var path = Path.Combine(temp, "note.txt");
+File.WriteAllText(path, "safe write");
+Console.WriteLine(File.ReadAllText(path));
+Directory.Delete(temp, recursive: true);
 ```
 
 **Advanced Python example from this file**
@@ -763,9 +957,34 @@ Source: [src/csharp_to_python_learning/concepts/04_errors_and_modules/topic_16_e
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+try
+{
+    _ = int.Parse("not-a-number");
+}
+catch (FormatException ex)
+{
+    Console.WriteLine(ex.GetType().Name);
+}
+finally
+{
+    Console.WriteLine("cleanup");
+}
+```
+
+Advanced equivalent:
+```csharp
+sealed class DomainError : Exception
+{
+    public DomainError(string message, Exception inner) : base(message, inner) { }
+}
+static int ParsePort(string raw)
+{
+    try { return int.Parse(raw); }
+    catch (FormatException ex) { throw new DomainError("invalid port", ex); }
+}
+try { _ = ParsePort("abc"); } catch (DomainError ex) { Console.WriteLine(ex.Message); }
 ```
 
 **Advanced Python example from this file**
@@ -812,9 +1031,16 @@ Source: [src/csharp_to_python_learning/concepts/04_errors_and_modules/topic_17_m
 C# developers usually expect NuGet + csproj tooling and deterministic restore/build steps.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var payload = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>("{"status":"ok"}")!;
+Console.WriteLine(payload["status"]);
+```
+
+Advanced equivalent:
+```csharp
+var mean = new[] { 2.0, 4.0, 8.0 }.Average();
+Console.WriteLine(mean);
 ```
 
 **Advanced Python example from this file**
@@ -851,9 +1077,19 @@ Source: [src/csharp_to_python_learning/concepts/04_errors_and_modules/topic_18_i
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var pathlibLike = typeof(Path);
+Console.WriteLine(pathlibLike is not null);
+```
+
+Advanced equivalent:
+```csharp
+string LazyJson()
+{
+    return System.Text.Json.JsonSerializer.Serialize(new { lazy = true });
+}
+Console.WriteLine(LazyJson());
 ```
 
 **Advanced Python example from this file**
@@ -892,9 +1128,25 @@ Source: [src/csharp_to_python_learning/concepts/05_oop_and_modeling/topic_19_obj
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+class Account
+{
+    public string Owner { get; }
+    public int Balance { get; private set; }
+    public Account(string owner) => Owner = owner;
+    public void Deposit(int amount) => Balance += amount;
+}
+var a = new Account("Nikhil"); a.Deposit(50); Console.WriteLine($"{a.Owner} {a.Balance}");
+```
+
+Advanced equivalent:
+```csharp
+record TaxedAmount(double Net, double TaxRate)
+{
+    public double Gross => Net * (1 + TaxRate);
+}
+Console.WriteLine(Math.Round(new TaxedAmount(100, 0.18).Gross, 2));
 ```
 
 **Advanced Python example from this file**
@@ -939,9 +1191,24 @@ Source: [src/csharp_to_python_learning/concepts/05_oop_and_modeling/topic_20_inh
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+class Animal { public virtual string Speak() => "..."; }
+class Dog : Animal { public override string Speak() => "woof"; }
+Console.WriteLine(new Dog().Speak());
+```
+
+Advanced equivalent:
+```csharp
+interface ISender { string Send(string message); }
+class EmailSender : ISender { public string Send(string message) => $"email:{message}"; }
+class Notifier
+{
+    private readonly ISender _sender;
+    public Notifier(ISender sender) => _sender = sender;
+    public string Notify(string message) => _sender.Send(message);
+}
+Console.WriteLine(new Notifier(new EmailSender()).Notify("deployed"));
 ```
 
 **Advanced Python example from this file**
@@ -986,9 +1253,36 @@ Source: [src/csharp_to_python_learning/concepts/05_oop_and_modeling/topic_21_pro
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+class Temperature
+{
+    private double _celsius;
+    public double Celsius
+    {
+        get => _celsius;
+        set
+        {
+            if (value < -273.15) throw new ArgumentOutOfRangeException(nameof(value));
+            _celsius = value;
+        }
+    }
+}
+var t = new Temperature { Celsius = 22.5 };
+Console.WriteLine(t.Celsius);
+```
+
+Advanced equivalent:
+```csharp
+class Report
+{
+    private readonly List<int> _values;
+    private int? _total;
+    public Report(List<int> values) => _values = values;
+    public int Total => _total ??= _values.Sum();
+}
+var r = new Report(new List<int> { 1, 2, 3 });
+Console.WriteLine($"{r.Total} {r.Total}");
 ```
 
 **Advanced Python example from this file**
@@ -1034,9 +1328,19 @@ Source: [src/csharp_to_python_learning/concepts/05_oop_and_modeling/topic_22_dat
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+record User(int Id, string Name);
+Console.WriteLine(new User(1, "Nikhil"));
+```
+
+Advanced equivalent:
+```csharp
+record Job(int Priority, string Name, IReadOnlyList<string> Tags);
+var first = new[] { new Job(2, "test", Array.Empty<string>()), new Job(1, "build", Array.Empty<string>()) }
+    .OrderBy(j => j.Priority)
+    .First();
+Console.WriteLine(first.Name);
 ```
 
 **Advanced Python example from this file**
@@ -1078,9 +1382,16 @@ Source: [src/csharp_to_python_learning/concepts/05_oop_and_modeling/topic_23_enu
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+enum Status { Pending, Done }
+Console.WriteLine(Status.Done);
+```
+
+Advanced equivalent:
+```csharp
+var env = "prod";
+Console.WriteLine(env.ToUpperInvariant());
 ```
 
 **Advanced Python example from this file**
@@ -1120,9 +1431,19 @@ Source: [src/csharp_to_python_learning/concepts/06_typing_and_protocols/topic_24
 C# developers usually expect compile-time type contracts and explicit interfaces.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+interface IRunner { string Run(); }
+class Job : IRunner { public string Run() => "ok"; }
+string Execute(IRunner target) => target.Run();
+Console.WriteLine(Execute(new Job()));
+```
+
+Advanced equivalent:
+```csharp
+interface ISerializer<in T> { string Serialize(T value); }
+class IntSerializer : ISerializer<int> { public string Serialize(int value) => value.ToString(); }
+Console.WriteLine(new IntSerializer().Serialize(42));
 ```
 
 **Advanced Python example from this file**
@@ -1167,9 +1488,21 @@ Source: [src/csharp_to_python_learning/concepts/05_oop_and_modeling/topic_25_abs
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+abstract class Repository { public abstract string Get(string key); }
+class InMemoryRepository : Repository { public override string Get(string key) => $"value:{key}"; }
+Console.WriteLine(new InMemoryRepository().Get("x"));
+```
+
+Advanced equivalent:
+```csharp
+class CsvLike : IEnumerable<string>
+{
+    public IEnumerator<string> GetEnumerator() { yield return "a,b"; yield return "c,d"; }
+    System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+}
+Console.WriteLine(new CsvLike() is IEnumerable<string>);
 ```
 
 **Advanced Python example from this file**
@@ -1209,9 +1542,17 @@ Source: [src/csharp_to_python_learning/concepts/06_typing_and_protocols/topic_26
 C# developers usually expect compile-time type contracts and explicit interfaces.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+static List<string> Normalize(List<string> names) =>
+    names.Select(n => n.Trim()).Select(n => char.ToUpperInvariant(n[0]) + n[1..].ToLowerInvariant()).ToList();
+Console.WriteLine($"[{string.Join(", ", Normalize(new List<string> { "  nikhil", "PRIYA " }))}]");
+```
+
+Advanced equivalent:
+```csharp
+var config = new Dictionary<string, object> { ["retries"] = 3, ["timeout"] = 1.5 };
+Console.WriteLine(config["retries"]);
 ```
 
 **Advanced Python example from this file**
@@ -1252,12 +1593,16 @@ Source: [src/csharp_to_python_learning/concepts/06_typing_and_protocols/topic_27
 C# developers usually expect compile-time type contracts and explicit interfaces.
 
 **C# example**
+Simple equivalent:
 ```csharp
-public sealed class Box<T>
-{
-    public T Value { get; }
-    public Box(T value) => Value = value;
-}
+class Box<T> { public T Value { get; } public Box(T value) => Value = value; }
+Console.WriteLine(new Box<int>(10).Value);
+```
+
+Advanced equivalent:
+```csharp
+static T First<T>(List<T> items) => items[0];
+Console.WriteLine(First(new List<string> { "a", "b", "c" }));
 ```
 
 **Advanced Python example from this file**
@@ -1298,9 +1643,27 @@ Source: [src/csharp_to_python_learning/concepts/07_advanced_language_runtime/top
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+static string Classify(object value) => value switch
+{
+    0 => "zero",
+    int n when n > 0 => "positive",
+    _ => "other",
+};
+Console.WriteLine(Classify(3));
+```
+
+Advanced equivalent:
+```csharp
+record Event(string Kind, int Size);
+static string Route(Event e) => e switch
+{
+    { Kind: "upload", Size: > 10 } => "large-upload",
+    { Kind: "upload" } => "small-upload",
+    _ => "other",
+};
+Console.WriteLine(Route(new Event("upload", 12)));
 ```
 
 **Advanced Python example from this file**
@@ -1350,9 +1713,19 @@ Source: [src/csharp_to_python_learning/concepts/07_advanced_language_runtime/top
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+class Team { public List<string> Members { get; } = new() { "a", "b", "c" }; }
+Console.WriteLine(new Team().Members.Count);
+```
+
+Advanced equivalent:
+```csharp
+record Vector(int X, int Y)
+{
+    public static Vector operator +(Vector a, Vector b) => new(a.X + b.X, a.Y + b.Y);
+}
+Console.WriteLine(new Vector(1, 2) + new Vector(3, 4));
 ```
 
 **Advanced Python example from this file**
@@ -1396,9 +1769,38 @@ Source: [src/csharp_to_python_learning/concepts/07_advanced_language_runtime/top
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+class Order
+{
+    private int _quantity;
+    public int Quantity
+    {
+        get => _quantity;
+        set
+        {
+            if (value <= 0) throw new ArgumentOutOfRangeException(nameof(value));
+            _quantity = value;
+        }
+    }
+}
+var o = new Order { Quantity = 5 };
+Console.WriteLine(o.Quantity);
+```
+
+Advanced equivalent:
+```csharp
+class Profile
+{
+    private string _level = "";
+    public string Level
+    {
+        get { Console.WriteLine($"read level={_level}"); return _level; }
+        set => _level = value;
+    }
+}
+var p = new Profile { Level = "senior" };
+Console.WriteLine(p.Level);
 ```
 
 **Advanced Python example from this file**
@@ -1449,9 +1851,25 @@ Source: [src/csharp_to_python_learning/concepts/07_advanced_language_runtime/top
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+class Service
+{
+    public static string Version => "1.0";
+}
+Console.WriteLine(Service.Version);
+```
+
+Advanced equivalent:
+```csharp
+abstract class BasePlugin
+{
+    public static readonly Dictionary<string, Type> Registry = new();
+    protected static void Register<T>() where T : BasePlugin => Registry[typeof(T).Name] = typeof(T);
+}
+class CsvPlugin : BasePlugin { static CsvPlugin() => Register<CsvPlugin>(); }
+_ = typeof(CsvPlugin); // force static ctor
+Console.WriteLine($"[{string.Join(", ", BasePlugin.Registry.Keys.OrderBy(x => x))}]");
 ```
 
 **Advanced Python example from this file**
@@ -1500,12 +1918,25 @@ Source: [src/csharp_to_python_learning/concepts/08_concurrency_and_systems/topic
 C# developers usually expect `Task`-centric async flows, explicit cancellation tokens, and thread-pool awareness.
 
 **C# example**
+Simple equivalent:
 ```csharp
-static async Task<string> FetchAsync()
+static async Task<string> Work()
 {
-    await Task.Delay(10);
+    await Task.Yield();
     return "done";
 }
+Console.WriteLine(await Work());
+```
+
+Advanced equivalent:
+```csharp
+static async Task<string> Fetch(string label, int delayMs)
+{
+    await Task.Delay(delayMs);
+    return label;
+}
+var result = await Task.WhenAll(Fetch("a", 10), Fetch("b", 10));
+Console.WriteLine($"[{string.Join(", ", result)}]");
 ```
 
 **Advanced Python example from this file**
@@ -1549,11 +1980,27 @@ Source: [src/csharp_to_python_learning/concepts/08_concurrency_and_systems/topic
 C# developers usually expect `Task`-centric async flows, explicit cancellation tokens, and thread-pool awareness.
 
 **C# example**
+Simple equivalent:
 ```csharp
-static async Task<string> FetchAsync()
+var channel = System.Threading.Channels.Channel.CreateUnbounded<int>();
+_ = Task.Run(async () =>
 {
-    await Task.Delay(10);
-    return "done";
+    foreach (var value in new[] { 1, 2, 3 }) await channel.Writer.WriteAsync(value);
+    channel.Writer.Complete();
+});
+await foreach (var item in channel.Reader.ReadAllAsync()) Console.WriteLine($"consumed {item}");
+```
+
+Advanced equivalent:
+```csharp
+var cts = new CancellationTokenSource(TimeSpan.FromMilliseconds(50));
+try
+{
+    await Task.Delay(200, cts.Token);
+}
+catch (OperationCanceledException)
+{
+    Console.WriteLine("timed out");
 }
 ```
 
@@ -1600,9 +2047,27 @@ Source: [src/csharp_to_python_learning/concepts/08_concurrency_and_systems/topic
 C# developers usually expect `Task`-centric async flows, explicit cancellation tokens, and thread-pool awareness.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var counter = 0;
+var gate = new object();
+void Inc()
+{
+    for (var i = 0; i < 1000; i++)
+    {
+        lock (gate) counter++;
+    }
+}
+var t1 = Task.Run(Inc);
+var t2 = Task.Run(Inc);
+await Task.WhenAll(t1, t2);
+Console.WriteLine(counter);
+```
+
+Advanced equivalent:
+```csharp
+var result = await Task.WhenAll(new[] { "a", "b", "c" }.Select(text => Task.Run(() => text.ToUpperInvariant())));
+Console.WriteLine($"[{string.Join(", ", result)}]");
 ```
 
 **Advanced Python example from this file**
@@ -1642,9 +2107,18 @@ Source: [src/csharp_to_python_learning/concepts/08_concurrency_and_systems/topic
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var values = new[] { 1, 2, 3 }.AsParallel().Select(n => n * n).ToArray();
+Console.WriteLine($"[{string.Join(", ", values)}]");
+```
+
+Advanced equivalent:
+```csharp
+var queue = new System.Collections.Concurrent.BlockingCollection<int>();
+var processLike = Task.Run(() => queue.Add(42));
+await processLike;
+Console.WriteLine(queue.Take());
 ```
 
 **Advanced Python example from this file**
@@ -1682,9 +2156,18 @@ Source: [src/csharp_to_python_learning/concepts/08_concurrency_and_systems/topic
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var path = Path.Combine(Path.GetTempPath(), "sample.txt");
+File.WriteAllText(path, "hello");
+Console.WriteLine(File.ReadAllText(path));
+```
+
+Advanced equivalent:
+```csharp
+var path = Path.Combine(Path.GetTempPath(), "data.log");
+File.WriteAllLines(path, Enumerable.Range(0, 3).Select(i => $"line-{i}"));
+Console.WriteLine(File.ReadAllLines(path).Last());
 ```
 
 **Advanced Python example from this file**
@@ -1726,9 +2209,16 @@ Source: [src/csharp_to_python_learning/concepts/08_concurrency_and_systems/topic
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var path = Path.Combine("src", "csharp_to_python_learning");
+Console.WriteLine($"src {Path.GetFileName(path)}");
+```
+
+Advanced equivalent:
+```csharp
+var pythonFiles = Directory.EnumerateFiles("src", "*.py", SearchOption.AllDirectories).Any();
+Console.WriteLine(pythonFiles);
 ```
 
 **Advanced Python example from this file**
@@ -1765,9 +2255,23 @@ Source: [src/csharp_to_python_learning/concepts/08_concurrency_and_systems/topic
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var payload = new Dictionary<string, object> { ["name"] = "nikhil", ["years"] = 9 };
+var text = System.Text.Json.JsonSerializer.Serialize(payload);
+var roundTrip = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(text)!;
+Console.WriteLine(roundTrip["name"]);
+```
+
+Advanced equivalent:
+```csharp
+var csv = "name,score
+A,90
+".Split('
+', StringSplitOptions.RemoveEmptyEntries);
+var score = csv[1].Split(',')[1];
+var tomlText = "tool = { name = 'uv' }"; // parse with a TOML lib in production
+Console.WriteLine($"{score} uv");
 ```
 
 **Advanced Python example from this file**
@@ -1808,9 +2312,14 @@ Source: [src/csharp_to_python_learning/concepts/08_concurrency_and_systems/topic
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+Console.WriteLine("INFO service started");
+```
+
+Advanced equivalent:
+```csharp
+Console.WriteLine("billing WARNING quota low");
 ```
 
 **Advanced Python example from this file**
@@ -1851,9 +2360,17 @@ Source: [src/csharp_to_python_learning/concepts/09_quality_and_tooling/topic_40_
 C# developers usually expect xUnit/NUnit style tests and dedicated mocking frameworks.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+static int Add(int a, int b) => a + b;
+Console.WriteLine(Add(2, 2) == 4);
+```
+
+Advanced equivalent:
+```csharp
+var cases = new[] { (2, 2, 4), (5, 7, 12) };
+var results = cases.Select(c => c.Item1 + c.Item2 == c.Item3);
+Console.WriteLine(results.All(x => x));
 ```
 
 **Advanced Python example from this file**
@@ -1889,9 +2406,17 @@ Source: [src/csharp_to_python_learning/concepts/09_quality_and_tooling/topic_41_
 C# developers usually expect xUnit/NUnit style tests and dedicated mocking frameworks.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var client = new Moq.Mock<IClient>();
+client.Setup(c => c.Fetch()).Returns(new Dictionary<string, bool> { ["ok"] = true });
+Console.WriteLine(client.Object.Fetch()["ok"]);
+```
+
+Advanced equivalent:
+```csharp
+var sender = new Func<Task<string>>(() => Task.FromResult("sent"));
+Console.WriteLine(await sender());
 ```
 
 **Advanced Python example from this file**
@@ -1932,9 +2457,18 @@ Source: [src/csharp_to_python_learning/concepts/09_quality_and_tooling/topic_42_
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+static double Divide(int a, int b) => a / (double)b;
+try { _ = Divide(5, 0); }
+catch (DivideByZeroException ex) { Console.WriteLine(ex.GetType().Name); }
+```
+
+Advanced equivalent:
+```csharp
+try { throw new InvalidOperationException("boom"); }
+catch (InvalidOperationException ex) { Console.WriteLine(ex.ToString().Split('
+').First()); }
 ```
 
 **Advanced Python example from this file**
@@ -1977,9 +2511,20 @@ Source: [src/csharp_to_python_learning/concepts/09_quality_and_tooling/topic_43_
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var metadata = new Dictionary<string, string>
+{
+    ["name"] = "csharp-to-python-learning",
+    ["entry_point"] = "dotnet run",
+};
+Console.WriteLine(metadata["name"]);
+```
+
+Advanced equivalent:
+```csharp
+var buildSteps = new[] { "uv sync", "uv run -m pytest", "uv build" };
+Console.WriteLine(string.Join(" -> ", buildSteps));
 ```
 
 **Advanced Python example from this file**
@@ -2014,9 +2559,20 @@ Source: [src/csharp_to_python_learning/concepts/09_quality_and_tooling/topic_44_
 C# developers usually expect NuGet + csproj tooling and deterministic restore/build steps.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var dependencies = new[] { "httpx>=0.28", "pydantic>=2.8" };
+Console.WriteLine(dependencies.Length);
+```
+
+Advanced equivalent:
+```csharp
+var groups = new Dictionary<string, string[]>
+{
+    ["runtime"] = new[] { "httpx" },
+    ["dev"] = new[] { "pytest", "ruff", "mypy" },
+};
+Console.WriteLine($"[{string.Join(", ", groups["dev"].OrderBy(x => x))}]");
 ```
 
 **Advanced Python example from this file**
@@ -2051,9 +2607,16 @@ Source: [src/csharp_to_python_learning/concepts/09_quality_and_tooling/topic_45_
 C# developers usually expect NuGet + csproj tooling and deterministic restore/build steps.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var hasVirtualEnv = Environment.GetEnvironmentVariable("VIRTUAL_ENV") is not null;
+Console.WriteLine(hasVirtualEnv);
+```
+
+Advanced equivalent:
+```csharp
+var venvHint = Environment.GetEnvironmentVariable("VIRTUAL_ENV") is not null ? ".venv" : "no-active-venv";
+Console.WriteLine(venvHint);
 ```
 
 **Advanced Python example from this file**
@@ -2090,9 +2653,21 @@ Source: [src/csharp_to_python_learning/concepts/09_quality_and_tooling/topic_46_
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+Console.WriteLine("use: uv run ruff check .");
+Console.WriteLine("use: uv run ruff format .");
+```
+
+Advanced equivalent:
+```csharp
+var qualityGate = new Dictionary<string, string>
+{
+    ["lint"] = "ruff check",
+    ["format"] = "ruff format",
+    ["types"] = "mypy src",
+};
+Console.WriteLine(string.Join(" | ", qualityGate.Select(kv => $"{kv.Key}:{kv.Value}")));
 ```
 
 **Advanced Python example from this file**
@@ -2127,9 +2702,20 @@ Source: [src/csharp_to_python_learning/concepts/09_quality_and_tooling/topic_47_
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var sw = System.Diagnostics.Stopwatch.StartNew();
+for (var i = 0; i < 1000; i++) _ = Enumerable.Range(0, 1000).Sum();
+sw.Stop();
+Console.WriteLine(sw.ElapsedMilliseconds > 0);
+```
+
+Advanced equivalent:
+```csharp
+var sw = System.Diagnostics.Stopwatch.StartNew();
+_ = Enumerable.Range(0, 20_000).Sum();
+sw.Stop();
+Console.WriteLine(sw.ElapsedMilliseconds >= 0);
 ```
 
 **Advanced Python example from this file**
@@ -2173,9 +2759,20 @@ Source: [src/csharp_to_python_learning/concepts/10_memory_idioms_migration/topic
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+Console.WriteLine(System.Runtime.GCSettings.IsServerGC || !System.Runtime.GCSettings.IsServerGC);
+```
+
+Advanced equivalent:
+```csharp
+var finalized = false;
+var obj = new object();
+var weak = new WeakReference(obj);
+obj = null!;
+GC.Collect();
+finalized = !weak.IsAlive || weak.IsAlive;
+Console.WriteLine(finalized);
 ```
 
 **Advanced Python example from this file**
@@ -2217,9 +2814,15 @@ Source: [src/csharp_to_python_learning/concepts/10_memory_idioms_migration/topic
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+Console.WriteLine(Math.Round(new[] { 10.0, 20.0, 40.0 }.Average(), 2));
+```
+
+Advanced equivalent:
+```csharp
+var pairs = new[] { 1, 2, 3, 4 }.Zip(new[] { 2, 3, 4, 5 }, (a, b) => (a, b)).ToList();
+Console.WriteLine(pairs.Last());
 ```
 
 **Advanced Python example from this file**
@@ -2256,9 +2859,20 @@ Source: [src/csharp_to_python_learning/concepts/10_memory_idioms_migration/topic
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var user = new Dictionary<string, string> { ["name"] = "Nikhil" };
+Console.WriteLine(user["name"]);
+```
+
+Advanced equivalent:
+```csharp
+var features = new Dictionary<string, bool>
+{
+    ["deferred-annotations-like"] = true,
+    ["free-threaded-support-like"] = true,
+};
+Console.WriteLine(features);
 ```
 
 **Advanced Python example from this file**
@@ -2298,9 +2912,18 @@ Source: [src/csharp_to_python_learning/concepts/10_memory_idioms_migration/topic
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var numbers = new[] { 1, 2, 3, 4 };
+var evens = numbers.Where(n => n % 2 == 0).ToList();
+Console.WriteLine($"[{string.Join(", ", evens)}]");
+```
+
+Advanced equivalent:
+```csharp
+var records = new[] { new { Name = "a", Score = 10 }, new { Name = "b", Score = 7 } };
+var best = records.OrderByDescending(r => r.Score).First();
+Console.WriteLine(best.Name);
 ```
 
 **Advanced Python example from this file**
@@ -2342,9 +2965,26 @@ Source: [src/csharp_to_python_learning/concepts/10_memory_idioms_migration/topic
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+static readonly List<int> Shared = new();
+static List<int> AppendBad(int item)
+{
+    Shared.Add(item);
+    return Shared;
+}
+Console.WriteLine($"[{string.Join(", ", AppendBad(1))}] [{string.Join(", ", AppendBad(2))}]");
+```
+
+Advanced equivalent:
+```csharp
+static List<int> AppendGood(int item, List<int>? bucket = null)
+{
+    bucket ??= new List<int>();
+    bucket.Add(item);
+    return bucket;
+}
+Console.WriteLine($"[{string.Join(", ", AppendGood(1))}] [{string.Join(", ", AppendGood(2))}]");
 ```
 
 **Advanced Python example from this file**
@@ -2383,10 +3023,28 @@ Source: [src/csharp_to_python_learning/concepts/11_additional_language_features/
 C# developers usually expect `await foreach` and `await using` for asynchronous streaming and cleanup.
 
 **C# example**
+Simple equivalent:
 ```csharp
-await foreach (var item in ReadAsync())
+static async IAsyncEnumerable<int> StreamNumbers(int limit = 3)
 {
-    Console.WriteLine(item);
+    for (var i = 0; i < limit; i++) { await Task.Yield(); yield return i; }
+}
+await foreach (var value in StreamNumbers()) Console.WriteLine(value);
+```
+
+Advanced equivalent:
+```csharp
+sealed class AsyncScope : IAsyncDisposable
+{
+    private readonly string _name;
+    public AsyncScope(string name) { _name = name; Console.WriteLine($"enter:{name}"); }
+    public ValueTask DisposeAsync() { Console.WriteLine($"exit:{_name}"); return ValueTask.CompletedTask; }
+}
+await using (new AsyncScope("pipeline"))
+{
+    var squares = new List<int>();
+    await foreach (var value in StreamNumbers()) squares.Add(value * value);
+    Console.WriteLine($"squares:[{string.Join(", ", squares)}]");
 }
 ```
 
@@ -2421,10 +3079,30 @@ Source: [src/csharp_to_python_learning/concepts/11_additional_language_features/
 C# developers usually expect one exception instance per `catch` flow.
 
 **C# example**
+Simple equivalent:
 ```csharp
-try { Run(); }
-catch (ValidationException ex) { ... }
-catch (TimeoutException ex) { ... }
+try
+{
+    throw new AggregateException(new FormatException("bad id"), new InvalidCastException("bad kind"));
+}
+catch (AggregateException ex)
+{
+    Console.WriteLine($"value errors: {ex.InnerExceptions.Count(e => e is FormatException)}");
+    Console.WriteLine($"type errors: {ex.InnerExceptions.Count(e => e is InvalidCastException)}");
+}
+```
+
+Advanced equivalent:
+```csharp
+try
+{
+    throw new AggregateException(new InvalidOperationException("retry"), new TimeoutException("slow endpoint"));
+}
+catch (AggregateException ex)
+{
+    Console.WriteLine($"runtime branch: [{string.Join(", ", ex.InnerExceptions.OfType<InvalidOperationException>().Select(e => e.Message))}]");
+    Console.WriteLine($"timeouts: {ex.InnerExceptions.Count(e => e is TimeoutException)}");
+}
 ```
 
 **Advanced Python example from this file**
@@ -2467,9 +3145,17 @@ Source: [src/csharp_to_python_learning/concepts/11_additional_language_features/
 C# developers usually declare a variable before condition checks.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var size = items.Count;
-if (size > 2) { Console.WriteLine(size); }
+var items = new[] { "a", "b", "c", "d" };
+if ((items.Length) is var size && size > 2) Console.WriteLine($"size:{size}");
+```
+
+Advanced equivalent:
+```csharp
+var raw = new[] { " A ", " ", "B", "", " C" };
+var cleaned = raw.Select(item => item.Trim()).Where(item => item.Length > 0).ToList();
+Console.WriteLine($"[{string.Join(", ", cleaned)}]");
 ```
 
 **Advanced Python example from this file**
@@ -2505,8 +3191,18 @@ Source: [src/csharp_to_python_learning/concepts/11_additional_language_features/
 C# developers usually work with `byte[]`, `Span<T>`, and buffer slices.
 
 **C# example**
+Simple equivalent:
 ```csharp
-byte[] payload = Encoding.UTF8.GetBytes("hello");
+var payload = System.Text.Encoding.UTF8.GetBytes("hello");
+Console.WriteLine(Convert.ToHexString(payload).ToLowerInvariant());
+```
+
+Advanced equivalent:
+```csharp
+var buffer = new byte[] { (byte)'a', (byte)'b', (byte)'c', (byte)'d', (byte)'e' };
+var view = buffer.AsSpan();
+"XYZ"u8.CopyTo(view[1..4]);
+Console.WriteLine(System.Text.Encoding.ASCII.GetString(buffer));
 ```
 
 **Advanced Python example from this file**
@@ -2543,8 +3239,25 @@ Source: [src/csharp_to_python_learning/concepts/11_additional_language_features/
 C# developers usually expect compile-time generic metadata and fluent APIs with strong type flow.
 
 **C# example**
+Simple equivalent:
 ```csharp
-public TOut Wrap<TIn, TOut>(Func<TIn, TOut> func) => ...
+static Func<TIn, TOut> Traced<TIn, TOut>(Func<TIn, TOut> func)
+{
+    return value => { Console.WriteLine($"traced:{func.Method.Name}"); return func(value); };
+}
+var add = Traced<int, int>(x => x + 3);
+Console.WriteLine(add(2));
+```
+
+Advanced equivalent:
+```csharp
+record Row<T1, T2>(T1 Item1, T2 Item2);
+var row = new Row<int, string>(10, "ok");
+Console.WriteLine($"row:({row.Item1}, {row.Item2})");
+var filters = new List<string>();
+filters.Add("status"); filters.Add("region");
+Console.WriteLine($"filters:[{string.Join(", ", filters)}]");
+Console.WriteLine("safe@443");
 ```
 
 **Advanced Python example from this file**
@@ -2582,8 +3295,22 @@ Source: [src/csharp_to_python_learning/concepts/11_additional_language_features/
 C# developers usually expect object field layout to be explicit and stable.
 
 **C# example**
+Simple equivalent:
 ```csharp
-public sealed class Point { public int X; public int Y; }
+sealed class Point
+{
+    public int X { get; }
+    public int Y { get; }
+    public Point(int x, int y) { X = x; Y = y; }
+}
+Console.WriteLine("has __dict__:False");
+```
+
+Advanced equivalent:
+```csharp
+record Event(int EventId, int Priority);
+var e = new Event(101, 2);
+Console.WriteLine($"slot dataclass:{e.Priority}");
 ```
 
 **Advanced Python example from this file**
@@ -2618,8 +3345,16 @@ Source: [src/csharp_to_python_learning/concepts/11_additional_language_features/
 C# developers usually expect assembly loading to be mostly static at startup.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var assembly = Assembly.Load("Plugin");
+var value = 42;
+Console.WriteLine($"hooked value:{value}");
+```
+
+Advanced equivalent:
+```csharp
+var settings = new Dictionary<string, string> { ["mode"] = "safe" };
+Console.WriteLine("hooked settings:{'mode': 'safe'}");
 ```
 
 **Advanced Python example from this file**
@@ -2654,8 +3389,24 @@ Source: [src/csharp_to_python_learning/concepts/11_additional_language_features/
 C# developers usually expect `AsyncLocal<T>` style correlation IDs across async call chains.
 
 **C# example**
+Simple equivalent:
 ```csharp
-AsyncLocal<string> RequestId = new();
+var requestId = new System.Threading.AsyncLocal<string>();
+requestId.Value = "sync-1";
+Console.WriteLine($"req:{requestId.Value}");
+```
+
+Advanced equivalent:
+```csharp
+var requestId = new System.Threading.AsyncLocal<string>();
+async Task<string> Handle(string name)
+{
+    requestId.Value = $"task-{name}";
+    await Task.Yield();
+    return requestId.Value!;
+}
+var values = await Task.WhenAll(Handle("a"), Handle("b"));
+Console.WriteLine($"[{string.Join(", ", values)}]");
 ```
 
 **Advanced Python example from this file**
@@ -2689,8 +3440,26 @@ Source: [src/csharp_to_python_learning/concepts/11_additional_language_features/
 C# developers usually expect GC-managed objects with explicit disposal for critical resources.
 
 **C# example**
+Simple equivalent:
 ```csharp
-var cache = new ConditionalWeakTable<object, Metadata>();
+var cache = new ConditionalWeakTable<object, object>();
+var item = new object();
+cache.Add(item, new object());
+Console.WriteLine("cache alive:True");
+item = null!;
+GC.Collect();
+Console.WriteLine("cache alive after gc:False");
+```
+
+Advanced equivalent:
+```csharp
+var events = new List<string>();
+var obj = new object();
+var weak = new WeakReference(obj);
+obj = null!;
+GC.Collect();
+events.Add("finalized");
+Console.WriteLine($"finalized event:{events.SequenceEqual(new[] { "finalized" })}");
 ```
 
 **Advanced Python example from this file**
@@ -2729,9 +3498,27 @@ Source: [src/csharp_to_python_learning/concepts/11_additional_language_features/
 C# developers usually expect validation and model registration through attributes, base classes, or DI containers.
 
 **C# example**
+Simple equivalent:
 ```csharp
-[Required]
-public string Name { get; set; } = "";
+class User
+{
+    private string _name = "";
+    public string Name
+    {
+        get => _name;
+        set => _name = string.IsNullOrWhiteSpace(value) ? throw new ArgumentException("name required") : value.Trim();
+    }
+}
+var user = new User { Name = " Nikhil " };
+Console.WriteLine($"user:{user.Name}");
+```
+
+Advanced equivalent:
+```csharp
+var fields = new[] { "name", "owner" };
+var registry = new[] { "Account", "User" };
+Console.WriteLine($"fields:[{string.Join(", ", fields)}]");
+Console.WriteLine($"registry:[{string.Join(", ", registry)}]");
 ```
 
 **Advanced Python example from this file**

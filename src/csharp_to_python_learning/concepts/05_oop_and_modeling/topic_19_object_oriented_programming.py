@@ -5,9 +5,25 @@
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+class Account
+{
+    public string Owner { get; }
+    public int Balance { get; private set; }
+    public Account(string owner) => Owner = owner;
+    public void Deposit(int amount) => Balance += amount;
+}
+var a = new Account("Nikhil"); a.Deposit(50); Console.WriteLine($"{a.Owner} {a.Balance}");
+```
+
+Advanced equivalent:
+```csharp
+record TaxedAmount(double Net, double TaxRate)
+{
+    public double Gross => Net * (1 + TaxRate);
+}
+Console.WriteLine(Math.Round(new TaxedAmount(100, 0.18).Gross, 2));
 ```
 
 ## Python equivalent

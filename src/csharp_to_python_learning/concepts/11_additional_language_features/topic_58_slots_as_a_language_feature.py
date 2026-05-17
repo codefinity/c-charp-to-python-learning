@@ -5,8 +5,22 @@
 C# developers usually expect object field layout to be explicit and stable.
 
 ## C# example
+Simple equivalent:
 ```csharp
-public sealed class Point { public int X; public int Y; }
+sealed class Point
+{
+    public int X { get; }
+    public int Y { get; }
+    public Point(int x, int y) { X = x; Y = y; }
+}
+Console.WriteLine("has __dict__:False");
+```
+
+Advanced equivalent:
+```csharp
+record Event(int EventId, int Priority);
+var e = new Event(101, 2);
+Console.WriteLine($"slot dataclass:{e.Priority}");
 ```
 
 ## Python equivalent

@@ -5,9 +5,17 @@
 C# developers usually expect compile-time type contracts and explicit interfaces.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+static List<string> Normalize(List<string> names) =>
+    names.Select(n => n.Trim()).Select(n => char.ToUpperInvariant(n[0]) + n[1..].ToLowerInvariant()).ToList();
+Console.WriteLine($"[{string.Join(", ", Normalize(new List<string> { "  nikhil", "PRIYA " }))}]");
+```
+
+Advanced equivalent:
+```csharp
+var config = new Dictionary<string, object> { ["retries"] = 3, ["timeout"] = 1.5 };
+Console.WriteLine(config["retries"]);
 ```
 
 ## Python equivalent

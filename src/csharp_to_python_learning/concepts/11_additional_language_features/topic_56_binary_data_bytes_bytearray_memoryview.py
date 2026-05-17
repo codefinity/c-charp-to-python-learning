@@ -5,8 +5,18 @@
 C# developers usually work with `byte[]`, `Span<T>`, and buffer slices.
 
 ## C# example
+Simple equivalent:
 ```csharp
-byte[] payload = Encoding.UTF8.GetBytes("hello");
+var payload = System.Text.Encoding.UTF8.GetBytes("hello");
+Console.WriteLine(Convert.ToHexString(payload).ToLowerInvariant());
+```
+
+Advanced equivalent:
+```csharp
+var buffer = new byte[] { (byte)'a', (byte)'b', (byte)'c', (byte)'d', (byte)'e' };
+var view = buffer.AsSpan();
+"XYZ"u8.CopyTo(view[1..4]);
+Console.WriteLine(System.Text.Encoding.ASCII.GetString(buffer));
 ```
 
 ## Python equivalent

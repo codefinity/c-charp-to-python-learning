@@ -5,9 +5,17 @@
 C# developers usually expect xUnit/NUnit style tests and dedicated mocking frameworks.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+static int Add(int a, int b) => a + b;
+Console.WriteLine(Add(2, 2) == 4);
+```
+
+Advanced equivalent:
+```csharp
+var cases = new[] { (2, 2, 4), (5, 7, 12) };
+var results = cases.Select(c => c.Item1 + c.Item2 == c.Item3);
+Console.WriteLine(results.All(x => x));
 ```
 
 ## Python equivalent

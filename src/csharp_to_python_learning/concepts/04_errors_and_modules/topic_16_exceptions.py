@@ -5,9 +5,34 @@
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+try
+{
+    _ = int.Parse("not-a-number");
+}
+catch (FormatException ex)
+{
+    Console.WriteLine(ex.GetType().Name);
+}
+finally
+{
+    Console.WriteLine("cleanup");
+}
+```
+
+Advanced equivalent:
+```csharp
+sealed class DomainError : Exception
+{
+    public DomainError(string message, Exception inner) : base(message, inner) { }
+}
+static int ParsePort(string raw)
+{
+    try { return int.Parse(raw); }
+    catch (FormatException ex) { throw new DomainError("invalid port", ex); }
+}
+try { _ = ParsePort("abc"); } catch (DomainError ex) { Console.WriteLine(ex.Message); }
 ```
 
 ## Python equivalent

@@ -5,8 +5,24 @@
 C# developers usually expect `AsyncLocal<T>` style correlation IDs across async call chains.
 
 ## C# example
+Simple equivalent:
 ```csharp
-AsyncLocal<string> RequestId = new();
+var requestId = new System.Threading.AsyncLocal<string>();
+requestId.Value = "sync-1";
+Console.WriteLine($"req:{requestId.Value}");
+```
+
+Advanced equivalent:
+```csharp
+var requestId = new System.Threading.AsyncLocal<string>();
+async Task<string> Handle(string name)
+{
+    requestId.Value = $"task-{name}";
+    await Task.Yield();
+    return requestId.Value!;
+}
+var values = await Task.WhenAll(Handle("a"), Handle("b"));
+Console.WriteLine($"[{string.Join(", ", values)}]");
 ```
 
 ## Python equivalent

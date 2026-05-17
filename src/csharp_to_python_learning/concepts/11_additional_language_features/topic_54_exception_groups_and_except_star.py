@@ -5,10 +5,30 @@
 C# developers usually expect one exception instance per `catch` flow.
 
 ## C# example
+Simple equivalent:
 ```csharp
-try { Run(); }
-catch (ValidationException ex) { ... }
-catch (TimeoutException ex) { ... }
+try
+{
+    throw new AggregateException(new FormatException("bad id"), new InvalidCastException("bad kind"));
+}
+catch (AggregateException ex)
+{
+    Console.WriteLine($"value errors: {ex.InnerExceptions.Count(e => e is FormatException)}");
+    Console.WriteLine($"type errors: {ex.InnerExceptions.Count(e => e is InvalidCastException)}");
+}
+```
+
+Advanced equivalent:
+```csharp
+try
+{
+    throw new AggregateException(new InvalidOperationException("retry"), new TimeoutException("slow endpoint"));
+}
+catch (AggregateException ex)
+{
+    Console.WriteLine($"runtime branch: [{string.Join(", ", ex.InnerExceptions.OfType<InvalidOperationException>().Select(e => e.Message))}]");
+    Console.WriteLine($"timeouts: {ex.InnerExceptions.Count(e => e is TimeoutException)}");
+}
 ```
 
 ## Python equivalent

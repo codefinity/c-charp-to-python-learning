@@ -5,9 +5,22 @@
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var teams = new[] { "platform", "api", "ml" };
+var ordered = teams.OrderBy(t => t.Length);
+Console.WriteLine($"[{string.Join(", ", ordered)}]");
+```
+
+Advanced equivalent:
+```csharp
+var records = new[]
+{
+    new { Name = "A", Score = 92 },
+    new { Name = "B", Score = 81 },
+};
+var top = records.OrderByDescending(r => r.Score).ThenBy(r => r.Name).First();
+Console.WriteLine($"{top.Name} {top.Score}");
 ```
 
 ## Python equivalent

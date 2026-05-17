@@ -5,9 +5,21 @@
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+Console.WriteLine("use: uv run ruff check .");
+Console.WriteLine("use: uv run ruff format .");
+```
+
+Advanced equivalent:
+```csharp
+var qualityGate = new Dictionary<string, string>
+{
+    ["lint"] = "ruff check",
+    ["format"] = "ruff format",
+    ["types"] = "mypy src",
+};
+Console.WriteLine(string.Join(" | ", qualityGate.Select(kv => $"{kv.Key}:{kv.Value}")));
 ```
 
 ## Python equivalent

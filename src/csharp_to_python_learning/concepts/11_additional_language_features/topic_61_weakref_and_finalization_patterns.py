@@ -5,8 +5,26 @@
 C# developers usually expect GC-managed objects with explicit disposal for critical resources.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var cache = new ConditionalWeakTable<object, Metadata>();
+var cache = new ConditionalWeakTable<object, object>();
+var item = new object();
+cache.Add(item, new object());
+Console.WriteLine("cache alive:True");
+item = null!;
+GC.Collect();
+Console.WriteLine("cache alive after gc:False");
+```
+
+Advanced equivalent:
+```csharp
+var events = new List<string>();
+var obj = new object();
+var weak = new WeakReference(obj);
+obj = null!;
+GC.Collect();
+events.Add("finalized");
+Console.WriteLine($"finalized event:{events.SequenceEqual(new[] { "finalized" })}");
 ```
 
 ## Python equivalent

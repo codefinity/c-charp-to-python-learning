@@ -5,9 +5,16 @@
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+enum Status { Pending, Done }
+Console.WriteLine(Status.Done);
+```
+
+Advanced equivalent:
+```csharp
+var env = "prod";
+Console.WriteLine(env.ToUpperInvariant());
 ```
 
 ## Python equivalent

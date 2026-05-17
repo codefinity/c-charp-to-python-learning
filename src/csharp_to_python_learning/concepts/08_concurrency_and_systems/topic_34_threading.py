@@ -5,9 +5,27 @@
 C# developers usually expect `Task`-centric async flows, explicit cancellation tokens, and thread-pool awareness.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var counter = 0;
+var gate = new object();
+void Inc()
+{
+    for (var i = 0; i < 1000; i++)
+    {
+        lock (gate) counter++;
+    }
+}
+var t1 = Task.Run(Inc);
+var t2 = Task.Run(Inc);
+await Task.WhenAll(t1, t2);
+Console.WriteLine(counter);
+```
+
+Advanced equivalent:
+```csharp
+var result = await Task.WhenAll(new[] { "a", "b", "c" }.Select(text => Task.Run(() => text.ToUpperInvariant())));
+Console.WriteLine($"[{string.Join(", ", result)}]");
 ```
 
 ## Python equivalent

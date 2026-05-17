@@ -5,9 +5,25 @@
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+sealed class LabelledScope : IDisposable
+{
+    private readonly string _name;
+    public LabelledScope(string name) { _name = name; Console.WriteLine($"enter {name}"); }
+    public void Dispose() => Console.WriteLine($"exit {_name}");
+}
+using (new LabelledScope("demo")) Console.WriteLine("inside");
+```
+
+Advanced equivalent:
+```csharp
+var temp = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+Directory.CreateDirectory(temp);
+var path = Path.Combine(temp, "note.txt");
+File.WriteAllText(path, "safe write");
+Console.WriteLine(File.ReadAllText(path));
+Directory.Delete(temp, recursive: true);
 ```
 
 ## Python equivalent

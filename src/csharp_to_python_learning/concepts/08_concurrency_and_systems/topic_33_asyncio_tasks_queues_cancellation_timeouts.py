@@ -5,11 +5,27 @@
 C# developers usually expect `Task`-centric async flows, explicit cancellation tokens, and thread-pool awareness.
 
 ## C# example
+Simple equivalent:
 ```csharp
-static async Task<string> FetchAsync()
+var channel = System.Threading.Channels.Channel.CreateUnbounded<int>();
+_ = Task.Run(async () =>
 {
-    await Task.Delay(10);
-    return "done";
+    foreach (var value in new[] { 1, 2, 3 }) await channel.Writer.WriteAsync(value);
+    channel.Writer.Complete();
+});
+await foreach (var item in channel.Reader.ReadAllAsync()) Console.WriteLine($"consumed {item}");
+```
+
+Advanced equivalent:
+```csharp
+var cts = new CancellationTokenSource(TimeSpan.FromMilliseconds(50));
+try
+{
+    await Task.Delay(200, cts.Token);
+}
+catch (OperationCanceledException)
+{
+    Console.WriteLine("timed out");
 }
 ```
 

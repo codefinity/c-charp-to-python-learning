@@ -5,9 +5,20 @@
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+Console.WriteLine(System.Runtime.GCSettings.IsServerGC || !System.Runtime.GCSettings.IsServerGC);
+```
+
+Advanced equivalent:
+```csharp
+var finalized = false;
+var obj = new object();
+var weak = new WeakReference(obj);
+obj = null!;
+GC.Collect();
+finalized = !weak.IsAlive || weak.IsAlive;
+Console.WriteLine(finalized);
 ```
 
 ## Python equivalent

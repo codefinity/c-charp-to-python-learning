@@ -5,9 +5,24 @@
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var commands = new[] { "uv init", "uv sync", "uv run src/.../topic_01_python_project_setup_with_uv.py" };
+foreach (var command in commands)
+{
+    Console.WriteLine(command);
+}
+```
+
+Advanced equivalent:
+```csharp
+var tooling = new Dictionary<string, string>
+{
+    ["dependencies"] = "uv add requests",
+    ["dev_dependencies"] = "uv add --dev pytest ruff mypy",
+    ["lock_refresh"] = "uv sync --upgrade",
+};
+Console.WriteLine(string.Join(", ", tooling.Select(kv => $"{kv.Key} => {kv.Value}")));
 ```
 
 ## Python equivalent

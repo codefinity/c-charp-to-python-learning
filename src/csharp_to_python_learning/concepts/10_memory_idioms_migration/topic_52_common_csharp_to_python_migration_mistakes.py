@@ -5,9 +5,26 @@
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+static readonly List<int> Shared = new();
+static List<int> AppendBad(int item)
+{
+    Shared.Add(item);
+    return Shared;
+}
+Console.WriteLine($"[{string.Join(", ", AppendBad(1))}] [{string.Join(", ", AppendBad(2))}]");
+```
+
+Advanced equivalent:
+```csharp
+static List<int> AppendGood(int item, List<int>? bucket = null)
+{
+    bucket ??= new List<int>();
+    bucket.Add(item);
+    return bucket;
+}
+Console.WriteLine($"[{string.Join(", ", AppendGood(1))}] [{string.Join(", ", AppendGood(2))}]");
 ```
 
 ## Python equivalent

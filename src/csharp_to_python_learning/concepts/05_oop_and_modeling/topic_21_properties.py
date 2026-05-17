@@ -5,9 +5,36 @@
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+class Temperature
+{
+    private double _celsius;
+    public double Celsius
+    {
+        get => _celsius;
+        set
+        {
+            if (value < -273.15) throw new ArgumentOutOfRangeException(nameof(value));
+            _celsius = value;
+        }
+    }
+}
+var t = new Temperature { Celsius = 22.5 };
+Console.WriteLine(t.Celsius);
+```
+
+Advanced equivalent:
+```csharp
+class Report
+{
+    private readonly List<int> _values;
+    private int? _total;
+    public Report(List<int> values) => _values = values;
+    public int Total => _total ??= _values.Sum();
+}
+var r = new Report(new List<int> { 1, 2, 3 });
+Console.WriteLine($"{r.Total} {r.Total}");
 ```
 
 ## Python equivalent

@@ -5,9 +5,24 @@
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 ## C# example
+Simple equivalent:
 ```csharp
-[LogExecution]
-public void Run() { Console.WriteLine("work"); }
+void Run() => Console.WriteLine("work");
+Console.WriteLine("[demo] start");
+Run();
+```
+
+Advanced equivalent:
+```csharp
+static T Timed<T>(Func<T> action)
+{
+    var sw = System.Diagnostics.Stopwatch.StartNew();
+    var result = action();
+    sw.Stop();
+    Console.WriteLine($"elapsed={sw.Elapsed.TotalMilliseconds / 1000.0:F6}");
+    return result;
+}
+Console.WriteLine(Timed(() => Enumerable.Range(0, 10_000).Sum()));
 ```
 
 ## Python equivalent

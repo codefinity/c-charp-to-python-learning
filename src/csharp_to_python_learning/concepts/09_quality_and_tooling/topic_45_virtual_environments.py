@@ -5,9 +5,16 @@
 C# developers usually expect NuGet + csproj tooling and deterministic restore/build steps.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var hasVirtualEnv = Environment.GetEnvironmentVariable("VIRTUAL_ENV") is not null;
+Console.WriteLine(hasVirtualEnv);
+```
+
+Advanced equivalent:
+```csharp
+var venvHint = Environment.GetEnvironmentVariable("VIRTUAL_ENV") is not null ? ".venv" : "no-active-venv";
+Console.WriteLine(venvHint);
 ```
 
 ## Python equivalent

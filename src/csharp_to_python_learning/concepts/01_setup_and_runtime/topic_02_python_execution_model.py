@@ -5,9 +5,17 @@
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+Console.WriteLine($"module/assembly: {typeof(Program).Assembly.GetName().Name}");
+Console.WriteLine("main block runs only when executed as a program entry point");
+```
+
+Advanced equivalent:
+```csharp
+var source = "value = 40 + 2";
+var value = 40 + 2; // equivalent compiled expression
+Console.WriteLine($"compiled value: {value}");
 ```
 
 ## Python equivalent

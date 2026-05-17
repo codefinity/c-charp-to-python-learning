@@ -5,12 +5,16 @@
 C# developers usually expect compile-time type contracts and explicit interfaces.
 
 ## C# example
+Simple equivalent:
 ```csharp
-public sealed class Box<T>
-{
-    public T Value { get; }
-    public Box(T value) => Value = value;
-}
+class Box<T> { public T Value { get; } public Box(T value) => Value = value; }
+Console.WriteLine(new Box<int>(10).Value);
+```
+
+Advanced equivalent:
+```csharp
+static T First<T>(List<T> items) => items[0];
+Console.WriteLine(First(new List<string> { "a", "b", "c" }));
 ```
 
 ## Python equivalent

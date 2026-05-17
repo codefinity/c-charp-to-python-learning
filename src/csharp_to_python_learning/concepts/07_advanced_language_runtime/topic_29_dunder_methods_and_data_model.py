@@ -5,9 +5,19 @@
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+class Team { public List<string> Members { get; } = new() { "a", "b", "c" }; }
+Console.WriteLine(new Team().Members.Count);
+```
+
+Advanced equivalent:
+```csharp
+record Vector(int X, int Y)
+{
+    public static Vector operator +(Vector a, Vector b) => new(a.X + b.X, a.Y + b.Y);
+}
+Console.WriteLine(new Vector(1, 2) + new Vector(3, 4));
 ```
 
 ## Python equivalent

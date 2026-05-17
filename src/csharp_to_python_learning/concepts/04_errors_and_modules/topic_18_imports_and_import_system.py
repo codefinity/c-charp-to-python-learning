@@ -5,9 +5,19 @@
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var pathlibLike = typeof(Path);
+Console.WriteLine(pathlibLike is not null);
+```
+
+Advanced equivalent:
+```csharp
+string LazyJson()
+{
+    return System.Text.Json.JsonSerializer.Serialize(new { lazy = true });
+}
+Console.WriteLine(LazyJson());
 ```
 
 ## Python equivalent

@@ -5,9 +5,23 @@
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+var numbers = new List<int> { 10, 20, 30, 40, 50 };
+var head = numbers[0];
+var middle = numbers.Skip(1).Take(numbers.Count - 2).ToList();
+var tail = numbers[^1];
+Console.WriteLine($"{head} [{string.Join(", ", middle)}] {tail}");
+```
+
+Advanced equivalent:
+```csharp
+var window = Enumerable.Range(0, 100)
+    .Select(n => n * n)
+    .Skip(5)
+    .Take(5)
+    .ToList();
+Console.WriteLine($"[{string.Join(", ", window)}]");
 ```
 
 ## Python equivalent

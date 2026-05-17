@@ -5,9 +5,21 @@
 C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
 
 ## C# example
+Simple equivalent:
 ```csharp
-var values = new[] { 1, 2, 3 };
-Console.WriteLine(values.Length);
+abstract class Repository { public abstract string Get(string key); }
+class InMemoryRepository : Repository { public override string Get(string key) => $"value:{key}"; }
+Console.WriteLine(new InMemoryRepository().Get("x"));
+```
+
+Advanced equivalent:
+```csharp
+class CsvLike : IEnumerable<string>
+{
+    public IEnumerator<string> GetEnumerator() { yield return "a,b"; yield return "c,d"; }
+    System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+}
+Console.WriteLine(new CsvLike() is IEnumerable<string>);
 ```
 
 ## Python equivalent
