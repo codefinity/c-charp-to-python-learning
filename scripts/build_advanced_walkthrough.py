@@ -3,17 +3,36 @@ from __future__ import annotations
 import ast
 import re
 import shutil
+from dataclasses import dataclass
 from pathlib import Path
 from textwrap import dedent
 
 README_PATH = Path("README.md")
 CONCEPTS_ROOT = Path("src/csharp_to_python_learning/concepts")
 PAGES_ROOT = Path("pages/advanced_walkthrough")
+
 START_MARKER = "<!-- ADVANCED_WALKTHROUGH_START -->"
 END_MARKER = "<!-- ADVANCED_WALKTHROUGH_END -->"
-TOC_ENTRY = "- [Advanced Walkthrough for C# Developers](#advanced-walkthrough-for-c-developers)"
+TOC_ENTRY = "- [Advanced Walkthrough for C# Developers](pages/advanced_walkthrough/README.md)"
 ADVANCED_TOC_START = "<!-- ADVANCED_WALKTHROUGH_TOPICS_START -->"
 ADVANCED_TOC_END = "<!-- ADVANCED_WALKTHROUGH_TOPICS_END -->"
+
+
+@dataclass(frozen=True)
+class ConceptEntry:
+    number: int
+    title: str
+    block: str
+    group: str
+    page_name: str
+
+    @property
+    def page_rel(self) -> str:
+        return Path("pages", "advanced_walkthrough", self.group, self.page_name).as_posix()
+
+    @property
+    def page_rel_from_pages_index(self) -> str:
+        return Path(self.group, self.page_name).as_posix()
 
 
 def topic_number(path: Path) -> int:
@@ -99,32 +118,47 @@ def concept_block(path: Path) -> tuple[str, int, str]:
     return block, number, title
 
 
+def slugify_filename(text: str) -> str:
+    slug = text.strip().lower()
+    slug = slug.replace("`", "")
+    slug = re.sub(r"[^a-z0-9]+", "_", slug)
+    return slug.strip("_")
+
+
 def discover_concept_files() -> list[Path]:
     discovered = sorted(CONCEPTS_ROOT.rglob("topic_*.py"))
-    # Prefer a single source file per topic number in the walkthrough.
-    # If duplicates exist (for example a legacy renamed file), pick the longest filename
-    # which tends to keep the newer, more descriptive slug.
     selected_by_topic: dict[int, Path] = {}
     for path in discovered:
         number = topic_number(path)
         current = selected_by_topic.get(number)
         if current is None or len(path.name) > len(current.name):
             selected_by_topic[number] = path
-
     return sorted(selected_by_topic.values(), key=topic_number)
 
 
-def build_section(concept_files: list[Path]) -> tuple[str, list[tuple[int, str]]]:
-    entries = [concept_block(path) for path in concept_files]
-    blocks = [entry[0] for entry in entries]
-    topics = [(entry[1], entry[2]) for entry in entries]
-    intro = (
+def build_concept_entries(concept_files: list[Path]) -> list[ConceptEntry]:
+    entries: list[ConceptEntry] = []
+    for path in concept_files:
+        block, number, title = concept_block(path)
+        entries.append(
+            ConceptEntry(
+                number=number,
+                title=title,
+                block=block,
+                group=path.parent.name,
+                page_name=f"{number:02d}_{slugify_filename(title)}.md",
+            )
+        )
+    return entries
+
+
+def build_readme_walkthrough_section() -> str:
+    content = (
         "## Advanced Walkthrough for C# Developers\n"
-        "This section pulls advanced examples directly from each concept file and explains how to map them from familiar C#/.NET patterns to Python production practices.\n"
-        "Use this as the deep-dive track after you run each concept script once.\n\n"
+        "The full concept-by-concept walkthrough is available in the pages folder:\n"
+        "- [Advanced Walkthrough Index](pages/advanced_walkthrough/README.md)\n"
     )
-    walkthrough = f"{START_MARKER}\n{intro}{'\n\n'.join(blocks)}\n{END_MARKER}"
-    return walkthrough, topics
+    return f"{START_MARKER}\n{content}\n{END_MARKER}"
 
 
 def insert_or_replace_walkthrough(readme: str, walkthrough: str) -> str:
@@ -142,40 +176,23 @@ def insert_or_replace_walkthrough(readme: str, walkthrough: str) -> str:
     return readme + "\n\n" + walkthrough + "\n"
 
 
-def slugify_heading(heading: str) -> str:
-    slug = heading.strip().lower()
-    slug = slug.replace("`", "")
-    slug = re.sub(r"[^\w\s-]", "", slug)
-    slug = re.sub(r"\s+", "-", slug)
-    slug = re.sub(r"-{2,}", "-", slug)
-    return slug.strip("-")
-
-
-def build_advanced_toc_section(topics: list[tuple[int, str]]) -> str:
+def build_advanced_toc_section(entries: list[ConceptEntry]) -> str:
     lines = [ADVANCED_TOC_START, TOC_ENTRY]
-    for number, title in topics:
-        heading = f"{number}. {title}"
-        lines.append(f"  - [{number}. {title}](#{slugify_heading(heading)})")
+    for entry in entries:
+        lines.append(f"  - [{entry.number}. {entry.title}]({entry.page_rel})")
     lines.append(ADVANCED_TOC_END)
     return "\n".join(lines)
 
 
-def ensure_toc_entries(readme: str, topics: list[tuple[int, str]]) -> str:
-    toc_section = build_advanced_toc_section(topics)
+def ensure_toc_entries(readme: str, entries: list[ConceptEntry]) -> str:
+    toc_section = build_advanced_toc_section(entries)
 
     if ADVANCED_TOC_START in readme and ADVANCED_TOC_END in readme:
-        block_pattern = re.compile(
+        pattern = re.compile(
             re.escape(ADVANCED_TOC_START) + r".*?" + re.escape(ADVANCED_TOC_END),
             flags=re.DOTALL,
         )
-        updated = block_pattern.sub(lambda _match: toc_section, readme, count=1)
-        # If an older README has TOC_ENTRY immediately before the marker block, remove the outer duplicate.
-        outer_plus_inner = (
-            TOC_ENTRY + "\n" + ADVANCED_TOC_START + "\n" + TOC_ENTRY
-        )
-        if outer_plus_inner in updated:
-            updated = updated.replace(outer_plus_inner, ADVANCED_TOC_START + "\n" + TOC_ENTRY, 1)
-        return updated
+        return pattern.sub(lambda _match: toc_section, readme, count=1)
 
     if TOC_ENTRY in readme:
         return readme.replace(TOC_ENTRY, toc_section, 1)
@@ -187,83 +204,31 @@ def ensure_toc_entries(readme: str, topics: list[tuple[int, str]]) -> str:
     return readme
 
 
-def slugify_filename(text: str) -> str:
-    slug = text.strip().lower()
-    slug = slug.replace("`", "")
-    slug = re.sub(r"[^a-z0-9]+", "_", slug)
-    return slug.strip("_")
-
-
-def extract_walkthrough_topic_blocks(readme: str) -> list[str]:
-    section_match = re.search(
-        re.escape(START_MARKER) + r"(?P<body>.*?)" + re.escape(END_MARKER),
-        readme,
-        flags=re.DOTALL,
-    )
-    if section_match is None:
-        return []
-
-    section_body = section_match.group("body")
-    topic_pattern = re.compile(
-        r"^### \d+\..*?(?=^### \d+\.|\Z)",
-        flags=re.MULTILINE | re.DOTALL,
-    )
-    return [block.strip() for block in topic_pattern.findall(section_body)]
-
-
-def concept_group_from_source(source_path: str) -> str:
-    source = Path(source_path)
-    parts = source.parts
-    if "concepts" not in parts:
-        return "misc"
-    index = parts.index("concepts")
-    if index + 1 >= len(parts):
-        return "misc"
-    return parts[index + 1]
-
-
-def write_concept_pages_from_readme(readme: str) -> None:
-    topic_blocks = extract_walkthrough_topic_blocks(readme)
+def write_concept_pages(entries: list[ConceptEntry]) -> None:
     shutil.rmtree(PAGES_ROOT, ignore_errors=True)
     PAGES_ROOT.mkdir(parents=True, exist_ok=True)
 
-    grouped_links: dict[str, list[str]] = {}
-    for block in topic_blocks:
-        lines = block.splitlines()
-        if not lines:
-            continue
-
-        heading_match = re.match(r"^### (?P<number>\d+)\. (?P<title>.+)$", lines[0].strip())
-        if heading_match is None:
-            continue
-
-        number = int(heading_match.group("number"))
-        title = heading_match.group("title").strip()
-        source_match = re.search(
-            r"^Source: \[(?P<source>src/.+?\.py)\]\(",
-            block,
-            flags=re.MULTILINE,
-        )
-        group = concept_group_from_source(source_match.group("source") if source_match else "")
-        file_name = f"{number:02d}_{slugify_filename(title)}.md"
-
-        output_dir = PAGES_ROOT / group
-        output_dir.mkdir(parents=True, exist_ok=True)
-        (output_dir / file_name).write_text(block.rstrip() + "\n", encoding="utf-8")
-
-        grouped_links.setdefault(group, []).append(
-            f"- [{number}. {title}]({group}/{file_name})"
-        )
+    grouped: dict[str, list[ConceptEntry]] = {}
+    for entry in entries:
+        target_dir = PAGES_ROOT / entry.group
+        target_dir.mkdir(parents=True, exist_ok=True)
+        (target_dir / entry.page_name).write_text(entry.block.rstrip() + "\n", encoding="utf-8")
+        grouped.setdefault(entry.group, []).append(entry)
 
     index_lines = [
         "# Advanced Walkthrough Pages",
         "",
         "Exact topic text copied from README Advanced Walkthrough, grouped by concept folder.",
         "",
+        "- [Back to main README](../../README.md)",
+        "",
     ]
-    for group in sorted(grouped_links):
+    for group in sorted(grouped):
         index_lines.append(f"## {group}")
-        index_lines.extend(sorted(grouped_links[group]))
+        for entry in sorted(grouped[group], key=lambda value: value.number):
+            index_lines.append(
+                f"- [{entry.number}. {entry.title}]({entry.page_rel_from_pages_index})"
+            )
         index_lines.append("")
 
     (PAGES_ROOT / "README.md").write_text(
@@ -274,12 +239,11 @@ def write_concept_pages_from_readme(readme: str) -> None:
 
 def main() -> None:
     readme = README_PATH.read_text(encoding="utf-8")
-    concept_files = discover_concept_files()
-    walkthrough, topics = build_section(concept_files)
-    readme = ensure_toc_entries(readme, topics)
-    readme = insert_or_replace_walkthrough(readme, walkthrough)
+    entries = build_concept_entries(discover_concept_files())
+    readme = ensure_toc_entries(readme, entries)
+    readme = insert_or_replace_walkthrough(readme, build_readme_walkthrough_section())
     README_PATH.write_text(readme.rstrip() + "\n", encoding="utf-8")
-    write_concept_pages_from_readme(readme)
+    write_concept_pages(entries)
 
 
 if __name__ == "__main__":

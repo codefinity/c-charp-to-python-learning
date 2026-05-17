@@ -2,6 +2,8 @@
 
 Exact topic text copied from README Advanced Walkthrough, grouped by concept folder.
 
+- [Back to main README](../../README.md)
+
 ## 01_setup_and_runtime
 - [1. Python project setup with uv](01_setup_and_runtime/01_python_project_setup_with_uv.md)
 - [2. Python execution model](01_setup_and_runtime/02_python_execution_model.md)
@@ -14,14 +16,14 @@ Exact topic text copied from README Advanced Walkthrough, grouped by concept fol
 - [7. Control flow](02_data_and_flow/07_control_flow.md)
 
 ## 03_functions_and_functional_tools
+- [8. Functions and Parameters](03_functions_and_functional_tools/08_functions_and_parameters.md)
+- [9. Default arguments and keyword-only arguments](03_functions_and_functional_tools/09_default_arguments_and_keyword_only_arguments.md)
 - [10. Lambdas](03_functions_and_functional_tools/10_lambdas.md)
 - [11. Closures](03_functions_and_functional_tools/11_closures.md)
 - [12. Decorators](03_functions_and_functional_tools/12_decorators.md)
 - [13. Comprehensions](03_functions_and_functional_tools/13_comprehensions.md)
 - [14. Iterators and generators](03_functions_and_functional_tools/14_iterators_and_generators.md)
 - [15. Context managers](03_functions_and_functional_tools/15_context_managers.md)
-- [8. Functions and Parameters](03_functions_and_functional_tools/08_functions_and_parameters.md)
-- [9. Default arguments and keyword-only arguments](03_functions_and_functional_tools/09_default_arguments_and_keyword_only_arguments.md)
 
 ## 04_errors_and_modules
 - [16. Exceptions](04_errors_and_modules/16_exceptions.md)
