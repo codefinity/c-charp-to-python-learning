@@ -149,32 +149,40 @@ def slugify_heading(heading: str) -> str:
     return slug.strip("-")
 
 
-def build_advanced_toc_block(topics: list[tuple[int, str]]) -> str:
-    lines = [ADVANCED_TOC_START]
+def build_advanced_toc_section(topics: list[tuple[int, str]]) -> str:
+    lines = [ADVANCED_TOC_START, TOC_ENTRY]
     for number, title in topics:
         heading = f"{number}. {title}"
-        lines.append(f"  - [Advanced {number}. {title}](#{slugify_heading(heading)})")
+        lines.append(f"  - [{number}. {title}](#{slugify_heading(heading)})")
     lines.append(ADVANCED_TOC_END)
     return "\n".join(lines)
 
 
 def ensure_toc_entries(readme: str, topics: list[tuple[int, str]]) -> str:
-    if TOC_ENTRY not in readme:
-        anchor = "- [Tutorial Concepts](#tutorial-concepts)\n"
-        if anchor in readme:
-            readme = readme.replace(anchor, anchor + TOC_ENTRY + "\n", 1)
-        else:
-            return readme
+    toc_section = build_advanced_toc_section(topics)
 
-    toc_block = build_advanced_toc_block(topics)
     if ADVANCED_TOC_START in readme and ADVANCED_TOC_END in readme:
-        pattern = re.compile(
+        block_pattern = re.compile(
             re.escape(ADVANCED_TOC_START) + r".*?" + re.escape(ADVANCED_TOC_END),
             flags=re.DOTALL,
         )
-        return pattern.sub(lambda _match: toc_block, readme)
+        updated = block_pattern.sub(lambda _match: toc_section, readme, count=1)
+        # If an older README has TOC_ENTRY immediately before the marker block, remove the outer duplicate.
+        outer_plus_inner = (
+            TOC_ENTRY + "\n" + ADVANCED_TOC_START + "\n" + TOC_ENTRY
+        )
+        if outer_plus_inner in updated:
+            updated = updated.replace(outer_plus_inner, ADVANCED_TOC_START + "\n" + TOC_ENTRY, 1)
+        return updated
 
-    return readme.replace(TOC_ENTRY, TOC_ENTRY + "\n" + toc_block, 1)
+    if TOC_ENTRY in readme:
+        return readme.replace(TOC_ENTRY, toc_section, 1)
+
+    anchor = "- [Tutorial Concepts](#tutorial-concepts)\n"
+    if anchor in readme:
+        return readme.replace(anchor, anchor + toc_section + "\n", 1)
+
+    return readme
 
 
 def main() -> None:
