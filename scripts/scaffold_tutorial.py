@@ -374,7 +374,7 @@ with tempfile.TemporaryDirectory() as directory:
     ),
     Topic(
         16,
-        "04_errors_modules_oop",
+        "04_errors_and_modules",
         "exceptions",
         "Exceptions",
         "Python exceptions are value-carrying objects; use narrow catches and explicit re-raising for clarity.",
@@ -406,7 +406,7 @@ except DomainError as exc:
     ),
     Topic(
         17,
-        "04_errors_modules_oop",
+        "04_errors_and_modules",
         "modules_and_packages",
         "Modules and packages",
         "A Python package is a directory namespace, similar to assemblies + namespaces but resolved at runtime.",
@@ -424,7 +424,7 @@ print(module.mean([2, 4, 8]))
     ),
     Topic(
         18,
-        "04_errors_modules_oop",
+        "04_errors_and_modules",
         "imports_and_import_system",
         "Imports and import system",
         "Imports are executable statements with caching in `sys.modules`; import style affects startup and clarity.",
@@ -444,7 +444,7 @@ print(lazy_json())
     ),
     Topic(
         19,
-        "04_errors_modules_oop",
+        "04_oop_and_modeling",
         "object_oriented_programming",
         "Object-oriented programming",
         "Python supports classic OOP, but with less ceremony and more runtime flexibility than C#.",
@@ -479,7 +479,7 @@ print(round(TaxedAmount(100, 0.18).gross, 2))
     ),
     Topic(
         20,
-        "04_errors_modules_oop",
+        "04_oop_and_modeling",
         "inheritance_and_composition",
         "Inheritance and composition",
         "Prefer composition when behavior should vary at runtime; use inheritance for stable hierarchies.",
@@ -512,7 +512,7 @@ print(Notifier(EmailSender()).notify("deployed"))
     ),
     Topic(
         21,
-        "04_errors_modules_oop",
+        "04_oop_and_modeling",
         "properties",
         "Properties",
         "Properties keep attribute syntax while enforcing invariants, similar to C# `get`/`set` properties.",
@@ -554,7 +554,7 @@ print(r.total, r.total)
     ),
     Topic(
         22,
-        "04_errors_modules_oop",
+        "04_oop_and_modeling",
         "dataclasses",
         "Dataclasses",
         "Dataclasses are concise record-like types with optional immutability, ordering, and slots.",
@@ -583,7 +583,7 @@ print(sorted([Job(2, "test"), Job(1, "build")])[0].name)
     ),
     Topic(
         23,
-        "04_errors_modules_oop",
+        "04_oop_and_modeling",
         "enums",
         "Enums",
         "Enums model closed sets of values and avoid stringly-typed logic in business rules.",
@@ -646,7 +646,7 @@ print(IntSerializer().serialize(42))
     ),
     Topic(
         25,
-        "05_typing_and_protocols",
+        "04_oop_and_modeling",
         "abstract_base_classes",
         "Abstract base classes",
         "ABCs define explicit contracts and can also provide reusable default behavior.",
