@@ -4,7 +4,8 @@
 </p>
 
 ## Who This Repository Is For
-This repository is for experienced C#/.NET developers who already understand OOP, generics, LINQ, async/await, dependency injection, build tools, and testing.  
+This repository is for experienced C#/.NET developers who already understand OOP, generics, LINQ, async/await, dependency injection, build tools, and testing.
+
 The goal is to help you become an advanced Python developer who can ship production-grade code confidently.
 
 ## One Week Study Plan
