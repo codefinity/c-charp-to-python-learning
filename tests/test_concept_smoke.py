@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import runpy
 from pathlib import Path
@@ -17,11 +17,11 @@ def test_selected_concepts_run_without_errors() -> None:
         PROJECT_ROOT
         / "src/csharp_to_python_learning/concepts/03_functions_and_functional_tools/topic_12_decorators.py",
         PROJECT_ROOT
-        / "src/csharp_to_python_learning/concepts/06_advanced_language_runtime/topic_30_descriptors.py",
+        / "src/csharp_to_python_learning/concepts/07_advanced_language_runtime/topic_30_descriptors.py",
         PROJECT_ROOT
-        / "src/csharp_to_python_learning/concepts/07_concurrency_and_systems/topic_33_asyncio_tasks_queues_cancellation_timeouts.py",
+        / "src/csharp_to_python_learning/concepts/08_concurrency_and_systems/topic_33_asyncio_tasks_queues_cancellation_timeouts.py",
         PROJECT_ROOT
-        / "src/csharp_to_python_learning/concepts/09_memory_idioms_migration/topic_50_python_3_14_specific_features.py",
+        / "src/csharp_to_python_learning/concepts/10_memory_idioms_migration/topic_50_python_3_14_specific_features.py",
     ]
     for script in scripts:
         run_script(script)
@@ -39,3 +39,4 @@ def test_capstone_pipeline_runs_without_errors() -> None:
         PROJECT_ROOT / "src/csharp_to_python_learning/capstone/capstone_async_event_pipeline.py"
     )
     run_script(script)
+

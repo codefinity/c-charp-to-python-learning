@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
@@ -444,7 +444,7 @@ print(lazy_json())
     ),
     Topic(
         19,
-        "04_oop_and_modeling",
+        "05_oop_and_modeling",
         "object_oriented_programming",
         "Object-oriented programming",
         "Python supports classic OOP, but with less ceremony and more runtime flexibility than C#.",
@@ -479,7 +479,7 @@ print(round(TaxedAmount(100, 0.18).gross, 2))
     ),
     Topic(
         20,
-        "04_oop_and_modeling",
+        "05_oop_and_modeling",
         "inheritance_and_composition",
         "Inheritance and composition",
         "Prefer composition when behavior should vary at runtime; use inheritance for stable hierarchies.",
@@ -512,7 +512,7 @@ print(Notifier(EmailSender()).notify("deployed"))
     ),
     Topic(
         21,
-        "04_oop_and_modeling",
+        "05_oop_and_modeling",
         "properties",
         "Properties",
         "Properties keep attribute syntax while enforcing invariants, similar to C# `get`/`set` properties.",
@@ -554,7 +554,7 @@ print(r.total, r.total)
     ),
     Topic(
         22,
-        "04_oop_and_modeling",
+        "05_oop_and_modeling",
         "dataclasses",
         "Dataclasses",
         "Dataclasses are concise record-like types with optional immutability, ordering, and slots.",
@@ -583,7 +583,7 @@ print(sorted([Job(2, "test"), Job(1, "build")])[0].name)
     ),
     Topic(
         23,
-        "04_oop_and_modeling",
+        "05_oop_and_modeling",
         "enums",
         "Enums",
         "Enums model closed sets of values and avoid stringly-typed logic in business rules.",
@@ -609,7 +609,7 @@ print(Environment.PROD.upper())
     ),
     Topic(
         24,
-        "05_typing_and_protocols",
+        "06_typing_and_protocols",
         "protocols_and_structural_typing",
         "Protocols and structural typing",
         "Protocols model behavior contracts by shape (duck typing) instead of explicit inheritance.",
@@ -646,7 +646,7 @@ print(IntSerializer().serialize(42))
     ),
     Topic(
         25,
-        "04_oop_and_modeling",
+        "05_oop_and_modeling",
         "abstract_base_classes",
         "Abstract base classes",
         "ABCs define explicit contracts and can also provide reusable default behavior.",
@@ -676,7 +676,7 @@ print(isinstance(CsvLike(), Iterable))
     ),
     Topic(
         26,
-        "05_typing_and_protocols",
+        "06_typing_and_protocols",
         "type_hints",
         "Type hints",
         "Type hints improve readability and tooling without changing runtime behavior.",
@@ -700,7 +700,7 @@ print(config["retries"])
     ),
     Topic(
         27,
-        "05_typing_and_protocols",
+        "06_typing_and_protocols",
         "generics",
         "Generics",
         "Python generics are type-checker friendly and map closely to C# generic classes and methods.",
@@ -729,7 +729,7 @@ print(first(["a", "b", "c"]))
     ),
     Topic(
         28,
-        "06_advanced_language_runtime",
+        "07_advanced_language_runtime",
         "pattern_matching",
         "Pattern matching",
         "Structural pattern matching is Python's expressive branching feature for tuple/list/dict/object shapes.",
@@ -768,7 +768,7 @@ print(route(Event("upload", 12)))
     ),
     Topic(
         29,
-        "06_advanced_language_runtime",
+        "07_advanced_language_runtime",
         "dunder_methods_and_data_model",
         "Dunder methods and Python data model",
         "Python objects participate in language syntax by implementing special (dunder) methods.",
@@ -799,7 +799,7 @@ print(Vector(1, 2) + Vector(3, 4))
     ),
     Topic(
         30,
-        "06_advanced_language_runtime",
+        "07_advanced_language_runtime",
         "descriptors",
         "Descriptors",
         "Descriptors power `property`, ORM fields, and validation by intercepting attribute access at class level.",
@@ -847,7 +847,7 @@ print(p.level)
     ),
     Topic(
         31,
-        "06_advanced_language_runtime",
+        "07_advanced_language_runtime",
         "metaclasses",
         "Metaclasses",
         "Metaclasses customize class creation and are useful for registries and framework hooks.",
@@ -884,7 +884,7 @@ print(sorted(RegistryMeta.registry))
     ),
     Topic(
         32,
-        "07_concurrency_and_systems",
+        "08_concurrency_and_systems",
         "async_and_await",
         "Async and await",
         "Async functions represent suspendable workflows; use them for I/O concurrency, not CPU parallelism.",
@@ -914,7 +914,7 @@ asyncio.run(main_async())
     ),
     Topic(
         33,
-        "07_concurrency_and_systems",
+        "08_concurrency_and_systems",
         "asyncio_tasks_queues_cancellation_timeouts",
         "asyncio tasks, queues, cancellation, timeouts",
         "Production asyncio code needs task orchestration, cancellation handling, queues, and timeout guards.",
@@ -958,7 +958,7 @@ asyncio.run(main_async())
     ),
     Topic(
         34,
-        "07_concurrency_and_systems",
+        "08_concurrency_and_systems",
         "threading",
         "Threading",
         "Threading works well for blocking I/O integration, protected with locks for shared mutable state.",
@@ -993,7 +993,7 @@ with ThreadPoolExecutor(max_workers=2) as pool:
     ),
     Topic(
         35,
-        "07_concurrency_and_systems",
+        "08_concurrency_and_systems",
         "multiprocessing",
         "Multiprocessing",
         "Use multiprocessing for CPU-bound work when threads are limited by interpreter-level contention.",
@@ -1024,7 +1024,7 @@ if __name__ == "__main__":
     ),
     Topic(
         36,
-        "07_concurrency_and_systems",
+        "08_concurrency_and_systems",
         "file_io",
         "File I/O",
         "Prefer explicit encodings and context managers for reliable file handling in production.",
@@ -1052,7 +1052,7 @@ with TemporaryDirectory() as directory:
     ),
     Topic(
         37,
-        "07_concurrency_and_systems",
+        "08_concurrency_and_systems",
         "pathlib",
         "pathlib",
         "`pathlib` gives object-oriented filesystem handling and replaces brittle string-based path logic.",
@@ -1070,7 +1070,7 @@ print(len(python_files) > 0)
     ),
     Topic(
         38,
-        "07_concurrency_and_systems",
+        "08_concurrency_and_systems",
         "json_csv_toml",
         "JSON, CSV, TOML",
         "Python's standard library handles core data formats without external dependencies.",
@@ -1094,7 +1094,7 @@ print(rows[0]["score"], parsed["tool"]["name"])
     ),
     Topic(
         39,
-        "07_concurrency_and_systems",
+        "08_concurrency_and_systems",
         "logging",
         "Logging",
         "Structured, leveled logging is the production replacement for `print` debugging.",
@@ -1118,7 +1118,7 @@ logger.warning("quota low")
     ),
     Topic(
         40,
-        "08_quality_and_tooling",
+        "09_quality_and_tooling",
         "testing_with_pytest",
         "Testing with pytest",
         "`pytest` favors simple functions and powerful assertions for fast test feedback.",
@@ -1137,7 +1137,7 @@ print(all(results))
     ),
     Topic(
         41,
-        "08_quality_and_tooling",
+        "09_quality_and_tooling",
         "mocking",
         "Mocking",
         "Use `unittest.mock` to isolate collaborators, side effects, and network boundaries.",
@@ -1162,7 +1162,7 @@ asyncio.run(main_async())
     ),
     Topic(
         42,
-        "08_quality_and_tooling",
+        "09_quality_and_tooling",
         "debugging",
         "Debugging",
         "Combine debugger breakpoints, targeted logging, and tracebacks for efficient incident triage.",
@@ -1191,7 +1191,7 @@ except RuntimeError:
     ),
     Topic(
         43,
-        "08_quality_and_tooling",
+        "09_quality_and_tooling",
         "packaging",
         "Packaging",
         "Packaging turns source code into installable artifacts with metadata and entry points.",
@@ -1210,7 +1210,7 @@ print(" -> ".join(build_steps))
     ),
     Topic(
         44,
-        "08_quality_and_tooling",
+        "09_quality_and_tooling",
         "dependency_management",
         "Dependency management",
         "Pin dependencies and commit lock files for deterministic builds across machines and CI.",
@@ -1226,7 +1226,7 @@ print(sorted(groups["dev"]))
     ),
     Topic(
         45,
-        "08_quality_and_tooling",
+        "09_quality_and_tooling",
         "virtual_environments",
         "Virtual environments",
         "Virtual environments isolate interpreter and package state per project, similar to per-solution toolchains.",
@@ -1243,7 +1243,7 @@ print(venv_hint)
     ),
     Topic(
         46,
-        "08_quality_and_tooling",
+        "09_quality_and_tooling",
         "linters_and_formatters",
         "Linters and formatters",
         "Ruff can handle linting and formatting quickly, replacing multiple separate tools in many projects.",
@@ -1260,7 +1260,7 @@ print(" | ".join(f"{k}:{v}" for k, v in quality_gate.items()))
     ),
     Topic(
         47,
-        "08_quality_and_tooling",
+        "09_quality_and_tooling",
         "performance_and_profiling",
         "Performance and profiling",
         "Measure before optimizing: combine `timeit`, `cProfile`, and algorithmic changes.",
@@ -1286,7 +1286,7 @@ print("function calls" in stream.getvalue())
     ),
     Topic(
         48,
-        "09_memory_idioms_migration",
+        "10_memory_idioms_migration",
         "memory_management_and_gc",
         "Memory management and garbage collection",
         "CPython uses reference counting plus cyclic GC; lifecycle choices affect latency and memory pressure.",
@@ -1309,7 +1309,7 @@ print(finalizer.alive in {True, False})
     ),
     Topic(
         49,
-        "09_memory_idioms_migration",
+        "10_memory_idioms_migration",
         "standard_library_overview",
         "Standard library overview",
         "The standard library covers many production needs: paths, JSON, CLI parsing, concurrency, testing, and more.",
@@ -1326,7 +1326,7 @@ print(pairs[-1])
     ),
     Topic(
         50,
-        "09_memory_idioms_migration",
+        "10_memory_idioms_migration",
         "python_3_14_specific_features",
         "Python 3.14-specific features",
         "Python 3.14 adds deferred annotation behavior and stronger support for free-threaded execution.",
@@ -1352,7 +1352,7 @@ print(features)
     ),
     Topic(
         51,
-        "09_memory_idioms_migration",
+        "10_memory_idioms_migration",
         "python_idioms_vs_csharp_idioms",
         "Python idioms versus C# idioms",
         "Translate intent, not syntax: many C# patterns have shorter Pythonic forms.",
@@ -1370,7 +1370,7 @@ print(best["name"])
     ),
     Topic(
         52,
-        "09_memory_idioms_migration",
+        "10_memory_idioms_migration",
         "common_csharp_to_python_migration_mistakes",
         "Common C# to Python migration mistakes",
         "Most migration bugs come from mutability assumptions, import-time side effects, and overusing class-heavy designs.",
@@ -1847,7 +1847,7 @@ def build_readme(concept_files: list[Path], python_only_files: list[Path]) -> st
         "### Running Individual Examples\n"
         "Every concept is runnable directly:\n"
         "```bash\n"
-        "uv run src/csharp_to_python_learning/concepts/09_memory_idioms_migration/topic_50_python_3_14_specific_features.py\n"
+        "uv run src/csharp_to_python_learning/concepts/10_memory_idioms_migration/topic_50_python_3_14_specific_features.py\n"
         "```\n\n"
         "## Tutorial Concepts\n"
         f"{'\n'.join(concept_lines)}\n\n"
@@ -1926,9 +1926,9 @@ def write_tests(root: Path) -> None:
             scripts = [
                 PROJECT_ROOT / "src/csharp_to_python_learning/concepts/01_setup_and_runtime/topic_01_python_project_setup_with_uv.py",
                 PROJECT_ROOT / "src/csharp_to_python_learning/concepts/03_functions_and_functional_tools/topic_12_decorators.py",
-                PROJECT_ROOT / "src/csharp_to_python_learning/concepts/06_advanced_language_runtime/topic_30_descriptors.py",
-                PROJECT_ROOT / "src/csharp_to_python_learning/concepts/07_concurrency_and_systems/topic_33_asyncio_tasks_queues_cancellation_timeouts.py",
-                PROJECT_ROOT / "src/csharp_to_python_learning/concepts/09_memory_idioms_migration/topic_50_python_3_14_specific_features.py",
+                PROJECT_ROOT / "src/csharp_to_python_learning/concepts/07_advanced_language_runtime/topic_30_descriptors.py",
+                PROJECT_ROOT / "src/csharp_to_python_learning/concepts/08_concurrency_and_systems/topic_33_asyncio_tasks_queues_cancellation_timeouts.py",
+                PROJECT_ROOT / "src/csharp_to_python_learning/concepts/10_memory_idioms_migration/topic_50_python_3_14_specific_features.py",
             ]
             for script in scripts:
                 run_script(script)
@@ -2041,3 +2041,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
