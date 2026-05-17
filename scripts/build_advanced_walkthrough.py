@@ -41,10 +41,10 @@ def parse_sections(docstring_text: str) -> tuple[str, dict[str, str]]:
     return title, sections
 
 
-def extract_advanced_code(source_text: str, module: ast.Module) -> str:
+def extract_function_code(source_text: str, module: ast.Module, function_name: str) -> str:
     lines = source_text.splitlines()
     for node in module.body:
-        if isinstance(node, ast.FunctionDef) and node.name == "advanced_python_example":
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and node.name == function_name:
             if not node.body:
                 return "pass"
             start = node.body[0].lineno
@@ -61,7 +61,8 @@ def concept_block(path: Path) -> str:
     module = ast.parse(source_text)
     docstring_text = ast.get_docstring(module, clean=False) or ""
     title, sections = parse_sections(docstring_text)
-    advanced_code = extract_advanced_code(source_text, module)
+    simple_code = extract_function_code(source_text, module, "simple_python_example")
+    advanced_code = extract_function_code(source_text, module, "advanced_python_example")
     rel = path.as_posix()
     number = topic_number(path)
 
@@ -72,6 +73,10 @@ def concept_block(path: Path) -> str:
         f"{sections.get('What C# developers usually expect', 'See source file docstring.')}\n\n"
         "**C# example**\n"
         f"{sections.get('C# example', 'See source file docstring.')}\n\n"
+        "**Simple Python example from this file**\n"
+        "```python\n"
+        f"{simple_code}\n"
+        "```\n\n"
         "**Advanced Python example from this file**\n"
         "```python\n"
         f"{advanced_code}\n"

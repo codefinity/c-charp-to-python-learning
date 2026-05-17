@@ -162,6 +162,17 @@ var tooling = new Dictionary<string, string>
 Console.WriteLine(string.Join(", ", tooling.Select(kv => $"{kv.Key} => {kv.Value}")));
 ```
 
+**Simple Python example from this file**
+```python
+commands = [
+    "uv init",
+    "uv sync",
+    "uv run src/csharp_to_python_learning/concepts/.../topic_01_python_project_setup_with_uv.py",
+]
+for command in commands:
+    print(command)
+```
+
 **Advanced Python example from this file**
 ```python
 tooling = {
@@ -209,6 +220,13 @@ Advanced equivalent:
 var source = "value = 40 + 2";
 var value = 40 + 2; // equivalent compiled expression
 Console.WriteLine($"compiled value: {value}");
+```
+
+**Simple Python example from this file**
+```python
+module_name = __name__
+print(f"module name: {module_name}")
+print("main block runs only when executed as a script")
 ```
 
 **Advanced Python example from this file**
@@ -267,6 +285,14 @@ Console.WriteLine(original["region"]);
 Console.WriteLine(string.Join(", ", (List<string>)copyForEdit["skills"]));
 ```
 
+**Simple Python example from this file**
+```python
+a = [1, 2]
+b = a
+b.append(3)
+print(a, b)
+```
+
 **Advanced Python example from this file**
 ```python
 original = {"region": "APAC", "skills": ["C#", "SQL"]}
@@ -311,6 +337,14 @@ Advanced equivalent:
 ```csharp
 var ratio = 1.0 / 3.0 + 1.0 / 6.0;
 Console.WriteLine($"fraction: 1/2 as float: {ratio:F1}");
+```
+
+**Simple Python example from this file**
+```python
+from decimal import Decimal
+
+amount = Decimal("19.99") * 3
+print(type(amount).__name__, amount)
 ```
 
 **Advanced Python example from this file**
@@ -360,6 +394,14 @@ Advanced equivalent:
 var permissions = new HashSet<string> { "read", "write" };
 var profile = ("nikhil", "senior", permissions);
 Console.WriteLine($"{profile.Item1} [{string.Join(", ", profile.Item3.OrderBy(x => x))}]");
+```
+
+**Simple Python example from this file**
+```python
+items = ["build", "test", "deploy"]
+mapping = {"build": 1, "test": 2}
+unique = set(items)
+print(items[0], mapping["test"], "deploy" in unique)
 ```
 
 **Advanced Python example from this file**
@@ -412,6 +454,13 @@ var window = Enumerable.Range(0, 100)
     .Take(5)
     .ToList();
 Console.WriteLine($"[{string.Join(", ", window)}]");
+```
+
+**Simple Python example from this file**
+```python
+numbers = [10, 20, 30, 40, 50]
+head, *middle, tail = numbers
+print(head, middle, tail)
 ```
 
 **Advanced Python example from this file**
@@ -474,6 +523,14 @@ foreach (var n in new[] { 1, 3, 5 })
 if (!found) Console.WriteLine("not found");
 ```
 
+**Simple Python example from this file**
+```python
+for n in range(3):
+    if n == 1:
+        continue
+    print("value", n)
+```
+
 **Advanced Python example from this file**
 ```python
 target = 7
@@ -526,6 +583,14 @@ static int Pipeline(int value, params Func<int, int>[] steps)
     return result;
 }
 Console.WriteLine(Pipeline(5, x => x + 1, x => x * 3));
+```
+
+**Simple Python example from this file**
+```python
+def add(a: int, b: int) -> int:
+    return a + b
+
+print(add(2, 3))
 ```
 
 **Advanced Python example from this file**
@@ -582,6 +647,14 @@ static List<int> AppendItem(int value, List<int>? bucket = null)
 Console.WriteLine($"[{string.Join(", ", AppendItem(1))}] [{string.Join(", ", AppendItem(2))}]");
 ```
 
+**Simple Python example from this file**
+```python
+def greet(name: str, *, excited: bool = False) -> str:
+    return f"Hello {name}{'!' if excited else '.'}"
+
+print(greet("Nikhil", excited=True))
+```
+
 **Advanced Python example from this file**
 ```python
 def append_item(value: int, bucket: list[int] | None = None) -> list[int]:
@@ -636,6 +709,12 @@ var top = records.OrderByDescending(r => r.Score).ThenBy(r => r.Name).First();
 Console.WriteLine($"{top.Name} {top.Score}");
 ```
 
+**Simple Python example from this file**
+```python
+teams = ["platform", "api", "ml"]
+print(sorted(teams, key=lambda t: len(t)))
+```
+
 **Advanced Python example from this file**
 ```python
 records = [{"name": "A", "score": 92}, {"name": "B", "score": 81}]
@@ -685,6 +764,22 @@ int Square(int value)
     return cache[value];
 }
 Console.WriteLine($"{Square(12)} {Square(12)}");
+```
+
+**Simple Python example from this file**
+```python
+def make_counter():
+    count = 0
+
+    def inc():
+        nonlocal count
+        count += 1
+        return count
+
+    return inc
+
+counter = make_counter()
+print(counter(), counter())
 ```
 
 **Advanced Python example from this file**
@@ -749,6 +844,28 @@ static T Timed<T>(Func<T> action)
 Console.WriteLine(Timed(() => Enumerable.Range(0, 10_000).Sum()));
 ```
 
+**Simple Python example from this file**
+```python
+from functools import wraps
+
+def tagged(tag: str):
+    def deco(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            print(f"[{tag}] start")
+            return func(*args, **kwargs)
+
+        return wrapper
+
+    return deco
+
+@tagged("demo")
+def run():
+    print("work")
+
+run()
+```
+
 **Advanced Python example from this file**
 ```python
 import time
@@ -810,6 +927,13 @@ var lookup = flat.ToDictionary(v => v, v => v * v);
 Console.WriteLine($"[{string.Join(", ", flat)}] {lookup[6]}");
 ```
 
+**Simple Python example from this file**
+```python
+numbers = [1, 2, 3, 4, 5]
+squares = [n * n for n in numbers if n % 2 == 1]
+print(squares)
+```
+
 **Advanced Python example from this file**
 ```python
 matrix = [[1, 2], [3, 4], [5, 6]]
@@ -858,6 +982,17 @@ Advanced equivalent:
 IEnumerable<string> Lines() { yield return "alpha"; yield return "beta"; }
 IEnumerable<string> Upper(IEnumerable<string> values) => values.Select(v => v.ToUpperInvariant());
 Console.WriteLine($"[{string.Join(", ", Upper(Lines()))}]");
+```
+
+**Simple Python example from this file**
+```python
+def count_up(limit: int):
+    current = 0
+    while current < limit:
+        yield current
+        current += 1
+
+print(list(count_up(4)))
 ```
 
 **Advanced Python example from this file**
@@ -918,6 +1053,22 @@ var path = Path.Combine(temp, "note.txt");
 File.WriteAllText(path, "safe write");
 Console.WriteLine(File.ReadAllText(path));
 Directory.Delete(temp, recursive: true);
+```
+
+**Simple Python example from this file**
+```python
+from contextlib import contextmanager
+
+@contextmanager
+def labelled(name: str):
+    print(f"enter {name}")
+    try:
+        yield
+    finally:
+        print(f"exit {name}")
+
+with labelled("demo"):
+    print("inside")
 ```
 
 **Advanced Python example from this file**
@@ -987,6 +1138,16 @@ static int ParsePort(string raw)
 try { _ = ParsePort("abc"); } catch (DomainError ex) { Console.WriteLine(ex.Message); }
 ```
 
+**Simple Python example from this file**
+```python
+try:
+    int("not-a-number")
+except ValueError as exc:
+    print(type(exc).__name__)
+finally:
+    print("cleanup")
+```
+
 **Advanced Python example from this file**
 ```python
 class DomainError(RuntimeError):
@@ -1043,6 +1204,14 @@ var mean = new[] { 2.0, 4.0, 8.0 }.Average();
 Console.WriteLine(mean);
 ```
 
+**Simple Python example from this file**
+```python
+import json
+
+payload = json.loads('{"status":"ok"}')
+print(payload["status"])
+```
+
 **Advanced Python example from this file**
 ```python
 import importlib
@@ -1090,6 +1259,14 @@ string LazyJson()
     return System.Text.Json.JsonSerializer.Serialize(new { lazy = true });
 }
 Console.WriteLine(LazyJson());
+```
+
+**Simple Python example from this file**
+```python
+import importlib.util
+
+spec = importlib.util.find_spec("pathlib")
+print(spec is not None)
 ```
 
 **Advanced Python example from this file**
@@ -1147,6 +1324,21 @@ record TaxedAmount(double Net, double TaxRate)
     public double Gross => Net * (1 + TaxRate);
 }
 Console.WriteLine(Math.Round(new TaxedAmount(100, 0.18).Gross, 2));
+```
+
+**Simple Python example from this file**
+```python
+class Account:
+    def __init__(self, owner: str):
+        self.owner = owner
+        self.balance = 0
+
+    def deposit(self, amount: int) -> None:
+        self.balance += amount
+
+a = Account("Nikhil")
+a.deposit(50)
+print(a.owner, a.balance)
 ```
 
 **Advanced Python example from this file**
@@ -1209,6 +1401,19 @@ class Notifier
     public string Notify(string message) => _sender.Send(message);
 }
 Console.WriteLine(new Notifier(new EmailSender()).Notify("deployed"));
+```
+
+**Simple Python example from this file**
+```python
+class Animal:
+    def speak(self) -> str:
+        return "..."
+
+class Dog(Animal):
+    def speak(self) -> str:
+        return "woof"
+
+print(Dog().speak())
 ```
 
 **Advanced Python example from this file**
@@ -1285,6 +1490,27 @@ var r = new Report(new List<int> { 1, 2, 3 });
 Console.WriteLine($"{r.Total} {r.Total}");
 ```
 
+**Simple Python example from this file**
+```python
+class Temperature:
+    def __init__(self):
+        self._celsius = 0.0
+
+    @property
+    def celsius(self) -> float:
+        return self._celsius
+
+    @celsius.setter
+    def celsius(self, value: float) -> None:
+        if value < -273.15:
+            raise ValueError("below absolute zero")
+        self._celsius = value
+
+t = Temperature()
+t.celsius = 22.5
+print(t.celsius)
+```
+
 **Advanced Python example from this file**
 ```python
 from functools import cached_property
@@ -1343,6 +1569,18 @@ var first = new[] { new Job(2, "test", Array.Empty<string>()), new Job(1, "build
 Console.WriteLine(first.Name);
 ```
 
+**Simple Python example from this file**
+```python
+from dataclasses import dataclass
+
+@dataclass
+class User:
+    id: int
+    name: str
+
+print(User(1, "Nikhil"))
+```
+
 **Advanced Python example from this file**
 ```python
 from dataclasses import dataclass, field
@@ -1392,6 +1630,17 @@ Advanced equivalent:
 ```csharp
 var env = "prod";
 Console.WriteLine(env.ToUpperInvariant());
+```
+
+**Simple Python example from this file**
+```python
+from enum import Enum, auto
+
+class Status(Enum):
+    PENDING = auto()
+    DONE = auto()
+
+print(Status.DONE.name)
 ```
 
 **Advanced Python example from this file**
@@ -1444,6 +1693,23 @@ Advanced equivalent:
 interface ISerializer<in T> { string Serialize(T value); }
 class IntSerializer : ISerializer<int> { public string Serialize(int value) => value.ToString(); }
 Console.WriteLine(new IntSerializer().Serialize(42));
+```
+
+**Simple Python example from this file**
+```python
+from typing import Protocol
+
+class Runner(Protocol):
+    def run(self) -> str: ...
+
+class Job:
+    def run(self) -> str:
+        return "ok"
+
+def execute(target: Runner) -> str:
+    return target.run()
+
+print(execute(Job()))
 ```
 
 **Advanced Python example from this file**
@@ -1505,6 +1771,21 @@ class CsvLike : IEnumerable<string>
 Console.WriteLine(new CsvLike() is IEnumerable<string>);
 ```
 
+**Simple Python example from this file**
+```python
+from abc import ABC, abstractmethod
+
+class Repository(ABC):
+    @abstractmethod
+    def get(self, key: str) -> str: ...
+
+class InMemoryRepository(Repository):
+    def get(self, key: str) -> str:
+        return f"value:{key}"
+
+print(InMemoryRepository().get("x"))
+```
+
 **Advanced Python example from this file**
 ```python
 from collections.abc import Iterable
@@ -1555,6 +1836,14 @@ var config = new Dictionary<string, object> { ["retries"] = 3, ["timeout"] = 1.5
 Console.WriteLine(config["retries"]);
 ```
 
+**Simple Python example from this file**
+```python
+def normalize(names: list[str]) -> list[str]:
+    return [name.strip().title() for name in names]
+
+print(normalize(["  nikhil", "PRIYA "]))
+```
+
 **Advanced Python example from this file**
 ```python
 from typing import TypedDict
@@ -1603,6 +1892,19 @@ Advanced equivalent:
 ```csharp
 static T First<T>(List<T> items) => items[0];
 Console.WriteLine(First(new List<string> { "a", "b", "c" }));
+```
+
+**Simple Python example from this file**
+```python
+from typing import Generic, TypeVar
+
+T = TypeVar("T")
+
+class Box(Generic[T]):
+    def __init__(self, value: T):
+        self.value = value
+
+print(Box[int](10).value)
 ```
 
 **Advanced Python example from this file**
@@ -1666,6 +1968,20 @@ static string Route(Event e) => e switch
 Console.WriteLine(Route(new Event("upload", 12)));
 ```
 
+**Simple Python example from this file**
+```python
+def classify(value):
+    match value:
+        case 0:
+            return "zero"
+        case int() as n if n > 0:
+            return "positive"
+        case _:
+            return "other"
+
+print(classify(3))
+```
+
 **Advanced Python example from this file**
 ```python
 from dataclasses import dataclass
@@ -1726,6 +2042,18 @@ record Vector(int X, int Y)
     public static Vector operator +(Vector a, Vector b) => new(a.X + b.X, a.Y + b.Y);
 }
 Console.WriteLine(new Vector(1, 2) + new Vector(3, 4));
+```
+
+**Simple Python example from this file**
+```python
+class Team:
+    def __init__(self, members):
+        self.members = members
+
+    def __len__(self):
+        return len(self.members)
+
+print(len(Team(["a", "b", "c"])))
 ```
 
 **Advanced Python example from this file**
@@ -1803,6 +2131,28 @@ var p = new Profile { Level = "senior" };
 Console.WriteLine(p.Level);
 ```
 
+**Simple Python example from this file**
+```python
+class Positive:
+    def __set_name__(self, owner, name):
+        self.private_name = f"_{name}"
+
+    def __get__(self, obj, objtype=None):
+        return getattr(obj, self.private_name)
+
+    def __set__(self, obj, value):
+        if value <= 0:
+            raise ValueError("must be positive")
+        setattr(obj, self.private_name, value)
+
+class Order:
+    quantity = Positive()
+
+o = Order()
+o.quantity = 5
+print(o.quantity)
+```
+
 **Advanced Python example from this file**
 ```python
 class Tracked:
@@ -1872,6 +2222,19 @@ _ = typeof(CsvPlugin); // force static ctor
 Console.WriteLine($"[{string.Join(", ", BasePlugin.Registry.Keys.OrderBy(x => x))}]");
 ```
 
+**Simple Python example from this file**
+```python
+class AddVersion(type):
+    def __new__(mcls, name, bases, namespace):
+        namespace["version"] = "1.0"
+        return super().__new__(mcls, name, bases, namespace)
+
+class Service(metaclass=AddVersion):
+    version: str
+
+print(Service.version)
+```
+
 **Advanced Python example from this file**
 ```python
 class RegistryMeta(type):
@@ -1939,6 +2302,17 @@ var result = await Task.WhenAll(Fetch("a", 10), Fetch("b", 10));
 Console.WriteLine($"[{string.Join(", ", result)}]");
 ```
 
+**Simple Python example from this file**
+```python
+import asyncio
+
+async def work():
+    await asyncio.sleep(0)
+    return "done"
+
+print(asyncio.run(work()))
+```
+
 **Advanced Python example from this file**
 ```python
 import asyncio
@@ -2002,6 +2376,29 @@ catch (OperationCanceledException)
 {
     Console.WriteLine("timed out");
 }
+```
+
+**Simple Python example from this file**
+```python
+import asyncio
+
+async def producer(queue: asyncio.Queue[int]) -> None:
+    for value in [1, 2, 3]:
+        await queue.put(value)
+    await queue.put(-1)
+
+async def consumer(queue: asyncio.Queue[int]) -> None:
+    while True:
+        item = await queue.get()
+        if item == -1:
+            break
+        print("consumed", item)
+
+async def main_async():
+    q: asyncio.Queue[int] = asyncio.Queue()
+    await asyncio.gather(producer(q), consumer(q))
+
+asyncio.run(main_async())
 ```
 
 **Advanced Python example from this file**
@@ -2070,6 +2467,27 @@ var result = await Task.WhenAll(new[] { "a", "b", "c" }.Select(text => Task.Run(
 Console.WriteLine($"[{string.Join(", ", result)}]");
 ```
 
+**Simple Python example from this file**
+```python
+import threading
+
+counter = {"value": 0}
+lock = threading.Lock()
+
+def inc() -> None:
+    for _ in range(1000):
+        with lock:
+            counter["value"] += 1
+
+t1 = threading.Thread(target=inc)
+t2 = threading.Thread(target=inc)
+t1.start()
+t2.start()
+t1.join()
+t2.join()
+print(counter["value"])
+```
+
 **Advanced Python example from this file**
 ```python
 from concurrent.futures import ThreadPoolExecutor
@@ -2121,6 +2539,12 @@ await processLike;
 Console.WriteLine(queue.Take());
 ```
 
+**Simple Python example from this file**
+```python
+with Pool(2) as pool:
+    print(pool.map(_square, [1, 2, 3]))
+```
+
 **Advanced Python example from this file**
 ```python
 queue: Queue[int] = Queue()
@@ -2168,6 +2592,17 @@ Advanced equivalent:
 var path = Path.Combine(Path.GetTempPath(), "data.log");
 File.WriteAllLines(path, Enumerable.Range(0, 3).Select(i => $"line-{i}"));
 Console.WriteLine(File.ReadAllLines(path).Last());
+```
+
+**Simple Python example from this file**
+```python
+from pathlib import Path
+from tempfile import TemporaryDirectory
+
+with TemporaryDirectory() as directory:
+    path = Path(directory) / "sample.txt"
+    path.write_text("hello", encoding="utf-8")
+    print(path.read_text(encoding="utf-8"))
 ```
 
 **Advanced Python example from this file**
@@ -2219,6 +2654,14 @@ Advanced equivalent:
 ```csharp
 var pythonFiles = Directory.EnumerateFiles("src", "*.py", SearchOption.AllDirectories).Any();
 Console.WriteLine(pythonFiles);
+```
+
+**Simple Python example from this file**
+```python
+from pathlib import Path
+
+path = Path("src") / "csharp_to_python_learning"
+print(path.parts[0], path.name)
 ```
 
 **Advanced Python example from this file**
@@ -2274,6 +2717,15 @@ var tomlText = "tool = { name = 'uv' }"; // parse with a TOML lib in production
 Console.WriteLine($"{score} uv");
 ```
 
+**Simple Python example from this file**
+```python
+import json
+
+payload = {"name": "nikhil", "years": 9}
+text = json.dumps(payload)
+print(json.loads(text)["name"])
+```
+
 **Advanced Python example from this file**
 ```python
 import csv
@@ -2320,6 +2772,14 @@ Console.WriteLine("INFO service started");
 Advanced equivalent:
 ```csharp
 Console.WriteLine("billing WARNING quota low");
+```
+
+**Simple Python example from this file**
+```python
+import logging
+
+logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
+logging.info("service started")
 ```
 
 **Advanced Python example from this file**
@@ -2373,6 +2833,14 @@ var results = cases.Select(c => c.Item1 + c.Item2 == c.Item3);
 Console.WriteLine(results.All(x => x));
 ```
 
+**Simple Python example from this file**
+```python
+def add(a: int, b: int) -> int:
+    return a + b
+
+print(add(2, 2) == 4)
+```
+
 **Advanced Python example from this file**
 ```python
 cases = [(2, 2, 4), (5, 7, 12)]
@@ -2417,6 +2885,15 @@ Advanced equivalent:
 ```csharp
 var sender = new Func<Task<string>>(() => Task.FromResult("sent"));
 Console.WriteLine(await sender());
+```
+
+**Simple Python example from this file**
+```python
+from unittest.mock import Mock
+
+client = Mock()
+client.fetch.return_value = {"ok": True}
+print(client.fetch()["ok"])
 ```
 
 **Advanced Python example from this file**
@@ -2469,6 +2946,17 @@ Advanced equivalent:
 try { throw new InvalidOperationException("boom"); }
 catch (InvalidOperationException ex) { Console.WriteLine(ex.ToString().Split('
 ').First()); }
+```
+
+**Simple Python example from this file**
+```python
+def divide(a: int, b: int) -> float:
+    return a / b
+
+try:
+    divide(5, 0)
+except ZeroDivisionError as exc:
+    print(type(exc).__name__)
 ```
 
 **Advanced Python example from this file**
@@ -2527,6 +3015,15 @@ var buildSteps = new[] { "uv sync", "uv run -m pytest", "uv build" };
 Console.WriteLine(string.Join(" -> ", buildSteps));
 ```
 
+**Simple Python example from this file**
+```python
+metadata = {
+    "name": "csharp-to-python-learning",
+    "entry_point": "python -m csharp_to_python_learning",
+}
+print(metadata["name"])
+```
+
 **Advanced Python example from this file**
 ```python
 build_steps = ["uv sync", "uv run -m pytest", "uv build"]
@@ -2575,6 +3072,12 @@ var groups = new Dictionary<string, string[]>
 Console.WriteLine($"[{string.Join(", ", groups["dev"].OrderBy(x => x))}]");
 ```
 
+**Simple Python example from this file**
+```python
+dependencies = ["httpx>=0.28", "pydantic>=2.8"]
+print(len(dependencies))
+```
+
 **Advanced Python example from this file**
 ```python
 groups = {"runtime": ["httpx"], "dev": ["pytest", "ruff", "mypy"]}
@@ -2617,6 +3120,13 @@ Advanced equivalent:
 ```csharp
 var venvHint = Environment.GetEnvironmentVariable("VIRTUAL_ENV") is not null ? ".venv" : "no-active-venv";
 Console.WriteLine(venvHint);
+```
+
+**Simple Python example from this file**
+```python
+import sys
+
+print(sys.prefix != sys.base_prefix)
 ```
 
 **Advanced Python example from this file**
@@ -2670,6 +3180,12 @@ var qualityGate = new Dictionary<string, string>
 Console.WriteLine(string.Join(" | ", qualityGate.Select(kv => $"{kv.Key}:{kv.Value}")));
 ```
 
+**Simple Python example from this file**
+```python
+print("use: uv run ruff check .")
+print("use: uv run ruff format .")
+```
+
 **Advanced Python example from this file**
 ```python
 quality_gate = {"lint": "ruff check", "format": "ruff format", "types": "mypy src"}
@@ -2716,6 +3232,14 @@ var sw = System.Diagnostics.Stopwatch.StartNew();
 _ = Enumerable.Range(0, 20_000).Sum();
 sw.Stop();
 Console.WriteLine(sw.ElapsedMilliseconds >= 0);
+```
+
+**Simple Python example from this file**
+```python
+import timeit
+
+duration = timeit.timeit("sum(range(1000))", number=1000)
+print(duration > 0)
 ```
 
 **Advanced Python example from this file**
@@ -2775,6 +3299,13 @@ finalized = !weak.IsAlive || weak.IsAlive;
 Console.WriteLine(finalized);
 ```
 
+**Simple Python example from this file**
+```python
+import gc
+
+print(gc.isenabled())
+```
+
 **Advanced Python example from this file**
 ```python
 import weakref
@@ -2823,6 +3354,13 @@ Advanced equivalent:
 ```csharp
 var pairs = new[] { 1, 2, 3, 4 }.Zip(new[] { 2, 3, 4, 5 }, (a, b) => (a, b)).ToList();
 Console.WriteLine(pairs.Last());
+```
+
+**Simple Python example from this file**
+```python
+import statistics
+
+print(round(statistics.mean([10, 20, 40]), 2))
 ```
 
 **Advanced Python example from this file**
@@ -2875,6 +3413,14 @@ var features = new Dictionary<string, bool>
 Console.WriteLine(features);
 ```
 
+**Simple Python example from this file**
+```python
+def build_user(name: str) -> dict[str, str]:
+    return {"name": name}
+
+print(build_user("Nikhil")["name"])
+```
+
 **Advanced Python example from this file**
 ```python
 import importlib.util
@@ -2924,6 +3470,13 @@ Advanced equivalent:
 var records = new[] { new { Name = "a", Score = 10 }, new { Name = "b", Score = 7 } };
 var best = records.OrderByDescending(r => r.Score).First();
 Console.WriteLine(best.Name);
+```
+
+**Simple Python example from this file**
+```python
+numbers = [1, 2, 3, 4]
+evens = [n for n in numbers if n % 2 == 0]
+print(evens)
 ```
 
 **Advanced Python example from this file**
@@ -2987,6 +3540,15 @@ static List<int> AppendGood(int item, List<int>? bucket = null)
 Console.WriteLine($"[{string.Join(", ", AppendGood(1))}] [{string.Join(", ", AppendGood(2))}]");
 ```
 
+**Simple Python example from this file**
+```python
+def append_bad(item, bucket=[]):  # noqa: B006 - intentional pitfall demo
+    bucket.append(item)
+    return bucket
+
+print(append_bad(1), append_bad(2))
+```
+
 **Advanced Python example from this file**
 ```python
 def append_good(item, bucket=None):
@@ -3048,9 +3610,17 @@ await using (new AsyncScope("pipeline"))
 }
 ```
 
+**Simple Python example from this file**
+```python
+async for value in stream_numbers():
+    print(value)
+```
+
 **Advanced Python example from this file**
 ```python
-pass
+async with traced_scope("pipeline"):
+    squares = [value * value async for value in stream_numbers()]
+    print(f"squares:{squares}")
 ```
 
 **Python equivalent**
@@ -3103,6 +3673,16 @@ catch (AggregateException ex)
     Console.WriteLine($"runtime branch: [{string.Join(", ", ex.InnerExceptions.OfType<InvalidOperationException>().Select(e => e.Message))}]");
     Console.WriteLine($"timeouts: {ex.InnerExceptions.Count(e => e is TimeoutException)}");
 }
+```
+
+**Simple Python example from this file**
+```python
+try:
+    build_group()
+except* ValueError as group:
+    print(f"value errors: {len(group.exceptions)}")
+except* TypeError as group:
+    print(f"type errors: {len(group.exceptions)}")
 ```
 
 **Advanced Python example from this file**
@@ -3158,6 +3738,13 @@ var cleaned = raw.Select(item => item.Trim()).Where(item => item.Length > 0).ToL
 Console.WriteLine($"[{string.Join(", ", cleaned)}]");
 ```
 
+**Simple Python example from this file**
+```python
+items = ["a", "b", "c", "d"]
+if (size := len(items)) > 2:
+    print(f"size:{size}")
+```
+
 **Advanced Python example from this file**
 ```python
 raw = [" A ", " ", "B", "", " C"]
@@ -3203,6 +3790,12 @@ var buffer = new byte[] { (byte)'a', (byte)'b', (byte)'c', (byte)'d', (byte)'e' 
 var view = buffer.AsSpan();
 "XYZ"u8.CopyTo(view[1..4]);
 Console.WriteLine(System.Text.Encoding.ASCII.GetString(buffer));
+```
+
+**Simple Python example from this file**
+```python
+payload = b"hello"
+print(payload.hex())
 ```
 
 **Advanced Python example from this file**
@@ -3260,6 +3853,14 @@ Console.WriteLine($"filters:[{string.Join(", ", filters)}]");
 Console.WriteLine("safe@443");
 ```
 
+**Simple Python example from this file**
+```python
+def add(x: int, y: int) -> int:
+    return x + y
+
+print(add(2, 3))
+```
+
 **Advanced Python example from this file**
 ```python
 row = Row[int, str](10, "ok")
@@ -3313,6 +3914,12 @@ var e = new Event(101, 2);
 Console.WriteLine($"slot dataclass:{e.Priority}");
 ```
 
+**Simple Python example from this file**
+```python
+point = Point(2, 4)
+print(f"has __dict__:{hasattr(point, '__dict__')}")
+```
+
 **Advanced Python example from this file**
 ```python
 event = Event(event_id=101, priority=2)
@@ -3355,6 +3962,12 @@ Advanced equivalent:
 ```csharp
 var settings = new Dictionary<string, string> { ["mode"] = "safe" };
 Console.WriteLine("hooked settings:{'mode': 'safe'}");
+```
+
+**Simple Python example from this file**
+```python
+module = run_with_hook("hooked_module", {"hooked_module": {"value": 42}})
+print(f"hooked value:{module.value}")
 ```
 
 **Advanced Python example from this file**
@@ -3409,9 +4022,19 @@ var values = await Task.WhenAll(Handle("a"), Handle("b"));
 Console.WriteLine($"[{string.Join(", ", values)}]");
 ```
 
+**Simple Python example from this file**
+```python
+token: Token[str] = request_id.set("sync-1")
+try:
+    print(f"req:{request_id.get()}")
+finally:
+    request_id.reset(token)
+```
+
 **Advanced Python example from this file**
 ```python
-pass
+values = await asyncio.gather(handle("a"), handle("b"))
+print(values)
 ```
 
 **Python equivalent**
@@ -3460,6 +4083,17 @@ obj = null!;
 GC.Collect();
 events.Add("finalized");
 Console.WriteLine($"finalized event:{events.SequenceEqual(new[] { "finalized" })}");
+```
+
+**Simple Python example from this file**
+```python
+cache: weakref.WeakValueDictionary[str, Payload] = weakref.WeakValueDictionary()
+item = Payload(5)
+cache["item"] = item
+print(f"cache alive:{'item' in cache}")
+del item
+gc.collect()
+print(f"cache alive after gc:{'item' in cache}")
 ```
 
 **Advanced Python example from this file**
@@ -3519,6 +4153,13 @@ var fields = new[] { "name", "owner" };
 var registry = new[] { "Account", "User" };
 Console.WriteLine($"fields:[{string.Join(", ", fields)}]");
 Console.WriteLine($"registry:[{string.Join(", ", registry)}]");
+```
+
+**Simple Python example from this file**
+```python
+user = User()
+user.name = " Nikhil "
+print(f"user:{user.name}")
 ```
 
 **Advanced Python example from this file**
