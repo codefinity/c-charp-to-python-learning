@@ -3,6 +3,107 @@
 This repository is for experienced C#/.NET developers who already understand OOP, generics, LINQ, async/await, dependency injection, build tools, and testing.  
 The goal is to help you become an advanced Python developer who can ship production-grade code confidently.
 
+## One Week Study Plan
+Use this sequence to build momentum without skipping fundamentals.
+
+1. **Day 1: Foundations and runtime model**
+   - Read: [Setup And Runtime](pages/advanced_walkthrough/README.md#01-setup-and-runtime), [Data And Flow](pages/advanced_walkthrough/README.md#02-data-and-flow)
+   - Topics:
+     - [1. Python project setup with uv](pages/advanced_walkthrough/01_setup_and_runtime/01_python_project_setup_with_uv.md)
+     - [2. Python execution model](pages/advanced_walkthrough/01_setup_and_runtime/02_python_execution_model.md)
+     - [3. Variables, names, references, and mutability](pages/advanced_walkthrough/02_data_and_flow/03_variables_names_references_and_mutability.md)
+     - [4. Primitive types](pages/advanced_walkthrough/02_data_and_flow/04_primitive_types.md)
+     - [5. Collections: list, tuple, dict, set, frozenset](pages/advanced_walkthrough/02_data_and_flow/05_collections_list_tuple_dict_set_frozenset.md)
+     - [6. Slicing and unpacking](pages/advanced_walkthrough/02_data_and_flow/06_slicing_and_unpacking.md)
+     - [7. Control flow](pages/advanced_walkthrough/02_data_and_flow/07_control_flow.md)
+
+2. **Day 2: Functions and functional patterns**
+   - Read: [Functions And Functional Tools](pages/advanced_walkthrough/README.md#03-functions-and-functional-tools)
+   - Topics:
+     - [8. Functions and Parameters](pages/advanced_walkthrough/03_functions_and_functional_tools/08_functions_and_parameters.md)
+     - [9. Default arguments and keyword-only arguments](pages/advanced_walkthrough/03_functions_and_functional_tools/09_default_arguments_and_keyword_only_arguments.md)
+     - [10. Lambdas](pages/advanced_walkthrough/03_functions_and_functional_tools/10_lambdas.md)
+     - [11. Closures](pages/advanced_walkthrough/03_functions_and_functional_tools/11_closures.md)
+     - [12. Decorators](pages/advanced_walkthrough/03_functions_and_functional_tools/12_decorators.md)
+     - [13. Comprehensions](pages/advanced_walkthrough/03_functions_and_functional_tools/13_comprehensions.md)
+     - [14. Iterators and generators](pages/advanced_walkthrough/03_functions_and_functional_tools/14_iterators_and_generators.md)
+     - [15. Context managers](pages/advanced_walkthrough/03_functions_and_functional_tools/15_context_managers.md)
+
+3. **Day 3: Errors, modules, and OOP modeling**
+   - Read: [Errors And Modules](pages/advanced_walkthrough/README.md#04-errors-and-modules), [Oop And Modeling](pages/advanced_walkthrough/README.md#05-oop-and-modeling)
+   - Topics:
+     - [16. Exceptions](pages/advanced_walkthrough/04_errors_and_modules/16_exceptions.md)
+     - [17. Modules and packages](pages/advanced_walkthrough/04_errors_and_modules/17_modules_and_packages.md)
+     - [18. Imports and import system](pages/advanced_walkthrough/04_errors_and_modules/18_imports_and_import_system.md)
+     - [19. Object-oriented programming](pages/advanced_walkthrough/05_oop_and_modeling/19_object_oriented_programming.md)
+     - [20. Inheritance and composition](pages/advanced_walkthrough/05_oop_and_modeling/20_inheritance_and_composition.md)
+     - [21. Properties](pages/advanced_walkthrough/05_oop_and_modeling/21_properties.md)
+     - [22. Dataclasses](pages/advanced_walkthrough/05_oop_and_modeling/22_dataclasses.md)
+     - [23. Enums](pages/advanced_walkthrough/05_oop_and_modeling/23_enums.md)
+     - [25. Abstract base classes](pages/advanced_walkthrough/05_oop_and_modeling/25_abstract_base_classes.md)
+
+4. **Day 4: Typing and advanced runtime model**
+   - Read: [Typing And Protocols](pages/advanced_walkthrough/README.md#06-typing-and-protocols), [Advanced Language Runtime](pages/advanced_walkthrough/README.md#07-advanced-language-runtime)
+   - Topics:
+     - [24. Protocols and structural typing](pages/advanced_walkthrough/06_typing_and_protocols/24_protocols_and_structural_typing.md)
+     - [26. Type hints](pages/advanced_walkthrough/06_typing_and_protocols/26_type_hints.md)
+     - [27. Generics](pages/advanced_walkthrough/06_typing_and_protocols/27_generics.md)
+     - [28. Pattern matching](pages/advanced_walkthrough/07_advanced_language_runtime/28_pattern_matching.md)
+     - [29. Dunder methods and Python data model](pages/advanced_walkthrough/07_advanced_language_runtime/29_dunder_methods_and_python_data_model.md)
+     - [30. Descriptors](pages/advanced_walkthrough/07_advanced_language_runtime/30_descriptors.md)
+     - [31. Metaclasses](pages/advanced_walkthrough/07_advanced_language_runtime/31_metaclasses.md)
+
+5. **Day 5: Concurrency and systems**
+   - Read: [Concurrency And Systems](pages/advanced_walkthrough/README.md#08-concurrency-and-systems)
+   - Topics:
+     - [32. Async and await](pages/advanced_walkthrough/08_concurrency_and_systems/32_async_and_await.md)
+     - [33. asyncio tasks, queues, cancellation, timeouts](pages/advanced_walkthrough/08_concurrency_and_systems/33_asyncio_tasks_queues_cancellation_timeouts.md)
+     - [34. Threading](pages/advanced_walkthrough/08_concurrency_and_systems/34_threading.md)
+     - [35. Multiprocessing](pages/advanced_walkthrough/08_concurrency_and_systems/35_multiprocessing.md)
+     - [36. File I/O](pages/advanced_walkthrough/08_concurrency_and_systems/36_file_i_o.md)
+     - [37. pathlib](pages/advanced_walkthrough/08_concurrency_and_systems/37_pathlib.md)
+     - [38. JSON, CSV, TOML](pages/advanced_walkthrough/08_concurrency_and_systems/38_json_csv_toml.md)
+     - [39. Logging](pages/advanced_walkthrough/08_concurrency_and_systems/39_logging.md)
+
+6. **Day 6: Quality, packaging, and migration mindset**
+   - Read: [Quality And Tooling](pages/advanced_walkthrough/README.md#09-quality-and-tooling), [Memory Idioms Migration](pages/advanced_walkthrough/README.md#10-memory-idioms-migration)
+   - Topics:
+     - [40. Testing with pytest](pages/advanced_walkthrough/09_quality_and_tooling/40_testing_with_pytest.md)
+     - [41. Mocking](pages/advanced_walkthrough/09_quality_and_tooling/41_mocking.md)
+     - [42. Debugging](pages/advanced_walkthrough/09_quality_and_tooling/42_debugging.md)
+     - [43. Packaging](pages/advanced_walkthrough/09_quality_and_tooling/43_packaging.md)
+     - [44. Dependency management](pages/advanced_walkthrough/09_quality_and_tooling/44_dependency_management.md)
+     - [45. Virtual environments](pages/advanced_walkthrough/09_quality_and_tooling/45_virtual_environments.md)
+     - [46. Linters and formatters](pages/advanced_walkthrough/09_quality_and_tooling/46_linters_and_formatters.md)
+     - [47. Performance and profiling](pages/advanced_walkthrough/09_quality_and_tooling/47_performance_and_profiling.md)
+     - [48. Memory management and garbage collection](pages/advanced_walkthrough/10_memory_idioms_migration/48_memory_management_and_garbage_collection.md)
+     - [49. Standard library overview](pages/advanced_walkthrough/10_memory_idioms_migration/49_standard_library_overview.md)
+     - [50. Python 3.14-specific features](pages/advanced_walkthrough/10_memory_idioms_migration/50_python_3_14_specific_features.md)
+     - [51. Python idioms versus C# idioms](pages/advanced_walkthrough/10_memory_idioms_migration/51_python_idioms_versus_c_idioms.md)
+     - [52. Common C# to Python migration mistakes](pages/advanced_walkthrough/10_memory_idioms_migration/52_common_c_to_python_migration_mistakes.md)
+
+7. **Day 7: Additional language features, Python-only features, and capstone**
+   - Read: [Additional Language Features](pages/advanced_walkthrough/README.md#11-additional-language-features), [Python-Only Features Index](pages/python_only_features/README.md)
+   - Topics:
+     - [53. Async iteration, async generators, and async context managers](pages/advanced_walkthrough/11_additional_language_features/53_async_iteration_async_generators_and_async_context_managers.md)
+     - [54. Exception groups and `except*`](pages/advanced_walkthrough/11_additional_language_features/54_exception_groups_and_except.md)
+     - [55. Assignment expressions (`:=`)](pages/advanced_walkthrough/11_additional_language_features/55_assignment_expressions.md)
+     - [56. Binary data: `bytes`, `bytearray`, and `memoryview`](pages/advanced_walkthrough/11_additional_language_features/56_binary_data_bytes_bytearray_and_memoryview.md)
+     - [57. Advanced typing: `ParamSpec`, `TypeVarTuple`, `Literal`, `Annotated`, `Self`](pages/advanced_walkthrough/11_additional_language_features/57_advanced_typing_paramspec_typevartuple_literal_annotated_self.md)
+     - [58. `__slots__` as a language feature](pages/advanced_walkthrough/11_additional_language_features/58_slots_as_a_language_feature.md)
+     - [59. Import hooks: custom finders and loaders](pages/advanced_walkthrough/11_additional_language_features/59_import_hooks_custom_finders_and_loaders.md)
+     - [60. `contextvars` and task-local state](pages/advanced_walkthrough/11_additional_language_features/60_contextvars_and_task_local_state.md)
+     - [61. Weak references and finalization patterns](pages/advanced_walkthrough/11_additional_language_features/61_weak_references_and_finalization_patterns.md)
+     - [62. Advanced descriptor and metaclass patterns](pages/advanced_walkthrough/11_additional_language_features/62_advanced_descriptor_and_metaclass_patterns.md)
+     - [Python-only feature 1: Duck Typing and Protocols](pages/python_only_features/feature_01_duck_typing_and_protocols.md)
+     - [Python-only feature 2: Extended Unpacking](pages/python_only_features/feature_02_extended_unpacking.md)
+     - [Python-only feature 3: Generator Pipelines](pages/python_only_features/feature_03_generator_pipelines.md)
+     - [Python-only feature 4: Contextlib Context Managers](pages/python_only_features/feature_04_contextlib_magic.md)
+     - [Python-only feature 5: Descriptors](pages/python_only_features/feature_05_descriptors.md)
+     - [Python-only feature 6: Structural Pattern Matching](pages/python_only_features/feature_06_pattern_matching.md)
+     - [Python-only feature 7: Metaclass Registry](pages/python_only_features/feature_07_metaclass_registry.md)
+   - Build: [Capstone project](#capstone-project)
+
 ## Table of Contents
 - [Who This Repository Is For](#who-this-repository-is-for)
 - [Quick Start](#quick-start)
@@ -106,21 +207,6 @@ The goal is to help you become an advanced Python developer who can ship product
 - [Further Study](#further-study)
 
 
-## One Week Study Plan
-1. **Day 1**: Setup + execution model + names/references/mutability + primitive types.  
-   Practice: run topics 1-4 and rewrite one .NET utility script in Python.
-2. **Day 2**: Collections, slicing/unpacking, control flow, functions, defaults, lambdas.  
-   Practice: port a LINQ-heavy method to comprehensions and generator pipelines.
-3. **Day 3**: Closures, decorators, iterators/generators, context managers, exceptions.  
-   Practice: wrap an I/O workflow with proper context managers and exception boundaries.
-4. **Day 4**: Modules, imports, OOP, dataclasses, enums, properties, composition.  
-   Practice: model a domain object set with dataclasses and validation.
-5. **Day 5**: Typing, protocols, ABCs, generics, pattern matching, data model, descriptors/metaclasses.  
-   Practice: introduce protocols and static typing to an existing Python script.
-6. **Day 6**: Asyncio, threading, multiprocessing, file/path/data formats, logging.  
-   Practice: build a small concurrent ingestion script with structured logging.
-7. **Day 7**: Testing/mocking/debugging, packaging/tooling, profiling/memory, migration pitfalls, capstone.  
-   Practice: complete capstone and add tests + lint + type checks.
 
 ## Quick Start
 ```bash
@@ -216,3 +302,6 @@ Capstone combines:
 - `asyncio` internals and cancellation design patterns.
 - Advanced typing (`TypeVarTuple`, `ParamSpec`, plugin/tooling ecosystems).
 - Packaging and release automation for internal Python platforms.
+
+
+
