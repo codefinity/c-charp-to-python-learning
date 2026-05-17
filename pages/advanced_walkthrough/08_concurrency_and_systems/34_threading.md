@@ -1,0 +1,79 @@
+### 34. Threading
+Source: [src/csharp_to_python_learning/concepts/08_concurrency_and_systems/topic_34_threading.py](src/csharp_to_python_learning/concepts/08_concurrency_and_systems/topic_34_threading.py)
+
+**What C# developers usually expect**
+C# developers usually expect `Task`-centric async flows, explicit cancellation tokens, and thread-pool awareness.
+
+**C# example**
+Simple equivalent:
+```csharp
+var counter = 0;
+var gate = new object();
+void Inc()
+{
+    for (var i = 0; i < 1000; i++)
+    {
+        lock (gate) counter++;
+    }
+}
+var t1 = Task.Run(Inc);
+var t2 = Task.Run(Inc);
+await Task.WhenAll(t1, t2);
+Console.WriteLine(counter);
+```
+
+Advanced equivalent:
+```csharp
+var result = await Task.WhenAll(new[] { "a", "b", "c" }.Select(text => Task.Run(() => text.ToUpperInvariant())));
+Console.WriteLine($"[{string.Join(", ", result)}]");
+```
+
+**Simple Python example from this file**
+```python
+import threading
+
+counter = {"value": 0}
+lock = threading.Lock()
+
+def inc() -> None:
+    for _ in range(1000):
+        with lock:
+            counter["value"] += 1
+
+t1 = threading.Thread(target=inc)
+t2 = threading.Thread(target=inc)
+t1.start()
+t2.start()
+t1.join()
+t2.join()
+print(counter["value"])
+```
+
+**Advanced Python example from this file**
+```python
+from concurrent.futures import ThreadPoolExecutor
+
+def upper(text: str) -> str:
+    return text.upper()
+
+with ThreadPoolExecutor(max_workers=2) as pool:
+    print(list(pool.map(upper, ["a", "b", "c"])))
+```
+
+**Python equivalent**
+Python approaches this concept with less ceremony: Threading works well for blocking I/O integration, protected with locks for shared mutable state. You still keep production discipline through tests, typing, and tooling.
+
+**Detailed explanation for C# developers**
+Threading works well for blocking I/O integration, protected with locks for shared mutable state. In practice, combine this with logging, tests, and type hints so the flexibility does not turn into ambiguity. Prefer small functions, clear data boundaries, and explicit contracts where behavior matters.
+
+**Common mistakes for C# developers**
+1. Assuming C# defaults apply directly in `Threading` without checking Python runtime behavior.
+2. Skipping tests because dynamic code feels simpler at first; regressions grow quickly without guardrails.
+
+**Exercises**
+1. Rewrite one recent C# snippet in Python using this concept: `Threading`.
+2. Add input validation, type hints, and one `pytest` test for the rewritten snippet.
+
+**Expected output**
+- 2000
+- ['A', 'B', 'C']

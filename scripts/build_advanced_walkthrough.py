@@ -2,11 +2,13 @@ from __future__ import annotations
 
 import ast
 import re
+import shutil
 from pathlib import Path
 from textwrap import dedent
 
 README_PATH = Path("README.md")
 CONCEPTS_ROOT = Path("src/csharp_to_python_learning/concepts")
+PAGES_ROOT = Path("pages/advanced_walkthrough")
 START_MARKER = "<!-- ADVANCED_WALKTHROUGH_START -->"
 END_MARKER = "<!-- ADVANCED_WALKTHROUGH_END -->"
 TOC_ENTRY = "- [Advanced Walkthrough for C# Developers](#advanced-walkthrough-for-c-developers)"
@@ -185,6 +187,91 @@ def ensure_toc_entries(readme: str, topics: list[tuple[int, str]]) -> str:
     return readme
 
 
+def slugify_filename(text: str) -> str:
+    slug = text.strip().lower()
+    slug = slug.replace("`", "")
+    slug = re.sub(r"[^a-z0-9]+", "_", slug)
+    return slug.strip("_")
+
+
+def extract_walkthrough_topic_blocks(readme: str) -> list[str]:
+    section_match = re.search(
+        re.escape(START_MARKER) + r"(?P<body>.*?)" + re.escape(END_MARKER),
+        readme,
+        flags=re.DOTALL,
+    )
+    if section_match is None:
+        return []
+
+    section_body = section_match.group("body")
+    topic_pattern = re.compile(
+        r"^### \d+\..*?(?=^### \d+\.|\Z)",
+        flags=re.MULTILINE | re.DOTALL,
+    )
+    return [block.strip() for block in topic_pattern.findall(section_body)]
+
+
+def concept_group_from_source(source_path: str) -> str:
+    source = Path(source_path)
+    parts = source.parts
+    if "concepts" not in parts:
+        return "misc"
+    index = parts.index("concepts")
+    if index + 1 >= len(parts):
+        return "misc"
+    return parts[index + 1]
+
+
+def write_concept_pages_from_readme(readme: str) -> None:
+    topic_blocks = extract_walkthrough_topic_blocks(readme)
+    shutil.rmtree(PAGES_ROOT, ignore_errors=True)
+    PAGES_ROOT.mkdir(parents=True, exist_ok=True)
+
+    grouped_links: dict[str, list[str]] = {}
+    for block in topic_blocks:
+        lines = block.splitlines()
+        if not lines:
+            continue
+
+        heading_match = re.match(r"^### (?P<number>\d+)\. (?P<title>.+)$", lines[0].strip())
+        if heading_match is None:
+            continue
+
+        number = int(heading_match.group("number"))
+        title = heading_match.group("title").strip()
+        source_match = re.search(
+            r"^Source: \[(?P<source>src/.+?\.py)\]\(",
+            block,
+            flags=re.MULTILINE,
+        )
+        group = concept_group_from_source(source_match.group("source") if source_match else "")
+        file_name = f"{number:02d}_{slugify_filename(title)}.md"
+
+        output_dir = PAGES_ROOT / group
+        output_dir.mkdir(parents=True, exist_ok=True)
+        (output_dir / file_name).write_text(block.rstrip() + "\n", encoding="utf-8")
+
+        grouped_links.setdefault(group, []).append(
+            f"- [{number}. {title}]({group}/{file_name})"
+        )
+
+    index_lines = [
+        "# Advanced Walkthrough Pages",
+        "",
+        "Exact topic text copied from README Advanced Walkthrough, grouped by concept folder.",
+        "",
+    ]
+    for group in sorted(grouped_links):
+        index_lines.append(f"## {group}")
+        index_lines.extend(sorted(grouped_links[group]))
+        index_lines.append("")
+
+    (PAGES_ROOT / "README.md").write_text(
+        "\n".join(index_lines).rstrip() + "\n",
+        encoding="utf-8",
+    )
+
+
 def main() -> None:
     readme = README_PATH.read_text(encoding="utf-8")
     concept_files = discover_concept_files()
@@ -192,6 +279,7 @@ def main() -> None:
     readme = ensure_toc_entries(readme, topics)
     readme = insert_or_replace_walkthrough(readme, walkthrough)
     README_PATH.write_text(readme.rstrip() + "\n", encoding="utf-8")
+    write_concept_pages_from_readme(readme)
 
 
 if __name__ == "__main__":
