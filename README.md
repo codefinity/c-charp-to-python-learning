@@ -89,7 +89,16 @@ The goal is to help you become an advanced Python developer who can ship product
     - [61. Weak references and finalization patterns](pages/advanced_walkthrough/11_additional_language_features/61_weak_references_and_finalization_patterns.md)
     - [62. Advanced descriptor and metaclass patterns](pages/advanced_walkthrough/11_additional_language_features/62_advanced_descriptor_and_metaclass_patterns.md)
 <!-- ADVANCED_WALKTHROUGH_TOPICS_END -->
-- [Python-Only Features](#python-only-features)
+<!-- PYTHON_ONLY_FEATURES_TOPICS_START -->
+- [Python-Only Features](pages/python_only_features/README.md)
+  - [1. Duck Typing and Protocols](pages/python_only_features/feature_01_duck_typing_and_protocols.md)
+  - [2. Extended Unpacking](pages/python_only_features/feature_02_extended_unpacking.md)
+  - [3. Generator Pipelines](pages/python_only_features/feature_03_generator_pipelines.md)
+  - [4. Contextlib Context Managers](pages/python_only_features/feature_04_contextlib_magic.md)
+  - [5. Descriptors](pages/python_only_features/feature_05_descriptors.md)
+  - [6. Structural Pattern Matching](pages/python_only_features/feature_06_pattern_matching.md)
+  - [7. Metaclass Registry](pages/python_only_features/feature_07_metaclass_registry.md)
+<!-- PYTHON_ONLY_FEATURES_TOPICS_END -->
 - [C# Features With No Direct Python Equivalent](#c-features-with-no-direct-python-equivalent)
 - [Python Features With No Direct C# Equivalent](#python-features-with-no-direct-c-equivalent)
 - [One Week Study Plan](#one-week-study-plan)
@@ -170,14 +179,8 @@ The full concept-by-concept walkthrough is available in the pages folder:
 <!-- ADVANCED_WALKTHROUGH_END -->
 
 ## Python-Only Features
-- [feature_01_duck_typing_and_protocols.py](src/csharp_to_python_learning/python_only_features/feature_01_duck_typing_and_protocols.py): runnable Python-only feature example.
-- [feature_02_extended_unpacking.py](src/csharp_to_python_learning/python_only_features/feature_02_extended_unpacking.py): runnable Python-only feature example.
-- [feature_03_generator_pipelines.py](src/csharp_to_python_learning/python_only_features/feature_03_generator_pipelines.py): runnable Python-only feature example.
-- [feature_04_contextlib_magic.py](src/csharp_to_python_learning/python_only_features/feature_04_contextlib_magic.py): runnable Python-only feature example.
-- [feature_05_descriptors.py](src/csharp_to_python_learning/python_only_features/feature_05_descriptors.py): runnable Python-only feature example.
-- [feature_06_pattern_matching.py](src/csharp_to_python_learning/python_only_features/feature_06_pattern_matching.py): runnable Python-only feature example.
-- [feature_07_metaclass_registry.py](src/csharp_to_python_learning/python_only_features/feature_07_metaclass_registry.py): runnable Python-only feature example.
-- [capstone_async_event_pipeline.py](src/csharp_to_python_learning/capstone/capstone_async_event_pipeline.py): runnable Python-only feature example.
+Python-only features are organized in dedicated pages, similar to the Advanced Walkthrough:
+- [Python-Only Features Index](pages/python_only_features/README.md)
 
 ## C# Features With No Direct Python Equivalent
 - Reified generics at runtime with CLR metadata behavior.
