@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import runpy
 from pathlib import Path
@@ -40,3 +40,11 @@ def test_capstone_pipeline_runs_without_errors() -> None:
     )
     run_script(script)
 
+
+def test_additional_language_features_run_without_errors() -> None:
+    feature_dir = (
+        PROJECT_ROOT / "src/csharp_to_python_learning/concepts/11_additional_language_features"
+    )
+    targets = sorted(feature_dir.glob("topic_*.py"))
+    for script in targets:
+        run_script(script)
