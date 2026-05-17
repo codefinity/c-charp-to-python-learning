@@ -1,0 +1,123 @@
+"""
+# 12. Decorators
+
+## What C# developers usually expect
+C# developers usually expect explicit type declarations, predictable object lifetimes, and compile-time guidance.
+
+## C# example
+```csharp
+[LogExecution]
+public void Run() { Console.WriteLine("work"); }
+```
+
+## Python equivalent
+Python approaches this concept with less ceremony: Decorators provide AOP-style wrappers for logging, validation, authorization, and instrumentation. You still keep production discipline through tests, typing, and tooling.
+
+## Simple Python example
+```python
+from functools import wraps
+
+def tagged(tag: str):
+    def deco(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            print(f"[{tag}] start")
+            return func(*args, **kwargs)
+        return wrapper
+    return deco
+
+@tagged("demo")
+def run():
+    print("work")
+
+run()
+```
+
+## Advanced Python example
+```python
+import time
+
+def timed(func):
+    def wrapper(*args, **kwargs):
+        start = time.perf_counter()
+        result = func(*args, **kwargs)
+        print(f"elapsed={time.perf_counter() - start:.6f}")
+        return result
+    return wrapper
+
+@timed
+def compute():
+    return sum(range(10_000))
+
+print(compute())
+```
+
+## Detailed explanation
+Decorators provide AOP-style wrappers for logging, validation, authorization, and instrumentation. In practice, combine this with logging, tests, and type hints so the flexibility does not turn into ambiguity. Prefer small functions, clear data boundaries, and explicit contracts where behavior matters.
+
+## Common mistakes for C# developers
+1. Assuming C# defaults apply directly in `Decorators` without checking Python runtime behavior.
+2. Skipping tests because dynamic code feels simpler at first; regressions grow quickly without guardrails.
+
+## Exercises
+1. Rewrite one recent C# snippet in Python using this concept: `Decorators`.
+2. Add input validation, type hints, and one `pytest` test for the rewritten snippet.
+
+## Expected output
+- [demo] start
+- elapsed=
+"""
+
+from __future__ import annotations
+
+
+def simple_python_example() -> None:
+    from functools import wraps
+
+    def tagged(tag: str):
+        def deco(func):
+            @wraps(func)
+            def wrapper(*args, **kwargs):
+                print(f"[{tag}] start")
+                return func(*args, **kwargs)
+
+            return wrapper
+
+        return deco
+
+    @tagged("demo")
+    def run():
+        print("work")
+
+    run()
+
+
+def advanced_python_example() -> None:
+    import time
+
+    def timed(func):
+        def wrapper(*args, **kwargs):
+            start = time.perf_counter()
+            result = func(*args, **kwargs)
+            print(f"elapsed={time.perf_counter() - start:.6f}")
+            return result
+
+        return wrapper
+
+    @timed
+    def compute():
+        return sum(range(10_000))
+
+    print(compute())
+
+
+def main() -> None:
+    print("=== 12. Decorators ===")
+    print("-- Simple Python example --")
+    simple_python_example()
+    print("-- Advanced Python example --")
+    advanced_python_example()
+
+
+if __name__ == "__main__":
+    main()
