@@ -4,18 +4,18 @@ Exact topic text copied from README Advanced Walkthrough, grouped by concept fol
 
 - [Back to main README](../../README.md)
 
-## 01_setup_and_runtime
+## 01. Setup And Runtime
 - [1. Python project setup with uv](01_setup_and_runtime/01_python_project_setup_with_uv.md)
 - [2. Python execution model](01_setup_and_runtime/02_python_execution_model.md)
 
-## 02_data_and_flow
+## 02. Data And Flow
 - [3. Variables, names, references, and mutability](02_data_and_flow/03_variables_names_references_and_mutability.md)
 - [4. Primitive types](02_data_and_flow/04_primitive_types.md)
 - [5. Collections: list, tuple, dict, set, frozenset](02_data_and_flow/05_collections_list_tuple_dict_set_frozenset.md)
 - [6. Slicing and unpacking](02_data_and_flow/06_slicing_and_unpacking.md)
 - [7. Control flow](02_data_and_flow/07_control_flow.md)
 
-## 03_functions_and_functional_tools
+## 03. Functions And Functional Tools
 - [8. Functions and Parameters](03_functions_and_functional_tools/08_functions_and_parameters.md)
 - [9. Default arguments and keyword-only arguments](03_functions_and_functional_tools/09_default_arguments_and_keyword_only_arguments.md)
 - [10. Lambdas](03_functions_and_functional_tools/10_lambdas.md)
@@ -25,12 +25,12 @@ Exact topic text copied from README Advanced Walkthrough, grouped by concept fol
 - [14. Iterators and generators](03_functions_and_functional_tools/14_iterators_and_generators.md)
 - [15. Context managers](03_functions_and_functional_tools/15_context_managers.md)
 
-## 04_errors_and_modules
+## 04. Errors And Modules
 - [16. Exceptions](04_errors_and_modules/16_exceptions.md)
 - [17. Modules and packages](04_errors_and_modules/17_modules_and_packages.md)
 - [18. Imports and import system](04_errors_and_modules/18_imports_and_import_system.md)
 
-## 05_oop_and_modeling
+## 05. Oop And Modeling
 - [19. Object-oriented programming](05_oop_and_modeling/19_object_oriented_programming.md)
 - [20. Inheritance and composition](05_oop_and_modeling/20_inheritance_and_composition.md)
 - [21. Properties](05_oop_and_modeling/21_properties.md)
@@ -38,18 +38,18 @@ Exact topic text copied from README Advanced Walkthrough, grouped by concept fol
 - [23. Enums](05_oop_and_modeling/23_enums.md)
 - [25. Abstract base classes](05_oop_and_modeling/25_abstract_base_classes.md)
 
-## 06_typing_and_protocols
+## 06. Typing And Protocols
 - [24. Protocols and structural typing](06_typing_and_protocols/24_protocols_and_structural_typing.md)
 - [26. Type hints](06_typing_and_protocols/26_type_hints.md)
 - [27. Generics](06_typing_and_protocols/27_generics.md)
 
-## 07_advanced_language_runtime
+## 07. Advanced Language Runtime
 - [28. Pattern matching](07_advanced_language_runtime/28_pattern_matching.md)
 - [29. Dunder methods and Python data model](07_advanced_language_runtime/29_dunder_methods_and_python_data_model.md)
 - [30. Descriptors](07_advanced_language_runtime/30_descriptors.md)
 - [31. Metaclasses](07_advanced_language_runtime/31_metaclasses.md)
 
-## 08_concurrency_and_systems
+## 08. Concurrency And Systems
 - [32. Async and await](08_concurrency_and_systems/32_async_and_await.md)
 - [33. asyncio tasks, queues, cancellation, timeouts](08_concurrency_and_systems/33_asyncio_tasks_queues_cancellation_timeouts.md)
 - [34. Threading](08_concurrency_and_systems/34_threading.md)
@@ -59,7 +59,7 @@ Exact topic text copied from README Advanced Walkthrough, grouped by concept fol
 - [38. JSON, CSV, TOML](08_concurrency_and_systems/38_json_csv_toml.md)
 - [39. Logging](08_concurrency_and_systems/39_logging.md)
 
-## 09_quality_and_tooling
+## 09. Quality And Tooling
 - [40. Testing with pytest](09_quality_and_tooling/40_testing_with_pytest.md)
 - [41. Mocking](09_quality_and_tooling/41_mocking.md)
 - [42. Debugging](09_quality_and_tooling/42_debugging.md)
@@ -69,14 +69,14 @@ Exact topic text copied from README Advanced Walkthrough, grouped by concept fol
 - [46. Linters and formatters](09_quality_and_tooling/46_linters_and_formatters.md)
 - [47. Performance and profiling](09_quality_and_tooling/47_performance_and_profiling.md)
 
-## 10_memory_idioms_migration
+## 10. Memory Idioms Migration
 - [48. Memory management and garbage collection](10_memory_idioms_migration/48_memory_management_and_garbage_collection.md)
 - [49. Standard library overview](10_memory_idioms_migration/49_standard_library_overview.md)
 - [50. Python 3.14-specific features](10_memory_idioms_migration/50_python_3_14_specific_features.md)
 - [51. Python idioms versus C# idioms](10_memory_idioms_migration/51_python_idioms_versus_c_idioms.md)
 - [52. Common C# to Python migration mistakes](10_memory_idioms_migration/52_common_c_to_python_migration_mistakes.md)
 
-## 11_additional_language_features
+## 11. Additional Language Features
 - [53. Async iteration, async generators, and async context managers](11_additional_language_features/53_async_iteration_async_generators_and_async_context_managers.md)
 - [54. Exception groups and `except*`](11_additional_language_features/54_exception_groups_and_except.md)
 - [55. Assignment expressions (`:=`)](11_additional_language_features/55_assignment_expressions.md)

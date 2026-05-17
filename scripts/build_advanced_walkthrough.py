@@ -125,6 +125,26 @@ def slugify_filename(text: str) -> str:
     return slug.strip("_")
 
 
+def readable_group_label(group: str) -> str:
+    match = re.match(r"^(?P<num>\d+)_?(?P<name>.*)$", group)
+    if match is None:
+        return group.replace("_", " ").title()
+    number = match.group("num")
+    name = match.group("name").replace("_", " ").strip()
+    if not name:
+        return number
+    return f"{number}. {name.title()}"
+
+
+def markdown_anchor(text: str) -> str:
+    anchor = text.strip().lower()
+    anchor = anchor.replace("`", "")
+    anchor = re.sub(r"[^\w\s-]", "", anchor)
+    anchor = re.sub(r"\s+", "-", anchor)
+    anchor = re.sub(r"-{2,}", "-", anchor)
+    return anchor.strip("-")
+
+
 def discover_concept_files() -> list[Path]:
     discovered = sorted(CONCEPTS_ROOT.rglob("topic_*.py"))
     selected_by_topic: dict[int, Path] = {}
@@ -178,8 +198,18 @@ def insert_or_replace_walkthrough(readme: str, walkthrough: str) -> str:
 
 def build_advanced_toc_section(entries: list[ConceptEntry]) -> str:
     lines = [ADVANCED_TOC_START, TOC_ENTRY]
+    grouped: dict[str, list[ConceptEntry]] = {}
     for entry in entries:
-        lines.append(f"  - [{entry.number}. {entry.title}]({entry.page_rel})")
+        grouped.setdefault(entry.group, []).append(entry)
+
+    for group in sorted(grouped):
+        label = readable_group_label(group)
+        anchor = markdown_anchor(label)
+        lines.append(
+            f"  - [{label}](pages/advanced_walkthrough/README.md#{anchor})"
+        )
+        for entry in sorted(grouped[group], key=lambda value: value.number):
+            lines.append(f"    - [{entry.number}. {entry.title}]({entry.page_rel})")
     lines.append(ADVANCED_TOC_END)
     return "\n".join(lines)
 
@@ -224,7 +254,7 @@ def write_concept_pages(entries: list[ConceptEntry]) -> None:
         "",
     ]
     for group in sorted(grouped):
-        index_lines.append(f"## {group}")
+        index_lines.append(f"## {readable_group_label(group)}")
         for entry in sorted(grouped[group], key=lambda value: value.number):
             index_lines.append(
                 f"- [{entry.number}. {entry.title}]({entry.page_rel_from_pages_index})"
