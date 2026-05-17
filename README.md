@@ -1,4 +1,6 @@
-﻿# C# to Python: Advanced, Production-Ready Tutorial (Python 3.14.5 + uv)
+﻿# C# to Python: Advanced, Production-Ready Tutorial - A 7 Day Challenge (Python 3.14.5 + uv)
+
+
 <p align="center">
   <img src="assets/images/repo-header.png" alt="C# to Python repository header" width="100%" />
 </p>
