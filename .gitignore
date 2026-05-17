@@ -218,3 +218,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Codex local metadata
+.codex/
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+Desktop.ini
